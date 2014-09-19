@@ -1,2 +1,2 @@
 <?php
-system('git pull');
+system('git pull 2>&1');

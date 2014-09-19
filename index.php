@@ -17,7 +17,7 @@ function __getBase() {
     return $base;
 }
 function __getUri() {
-    $ret = preg_replace('/^' . preg_quote(BASE, '/') . '/', '', $_SERVER['REQUEST_URI']));
+    $ret = preg_replace('/^' . preg_quote(BASE, '/') . '/', '', $_SERVER['REQUEST_URI']);
     if(!isset($ret{0}))
         $ret = 'index.php';
     return $ret;

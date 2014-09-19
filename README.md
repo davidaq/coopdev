@@ -11,7 +11,6 @@ Features
  - Wiki page with simple discussion
  - Git repo host
  - Scheduled task
- - File sharing
 
 Assumptions
 -----------
@@ -19,3 +18,7 @@ Assumptions
  - Most members in the team are trusted
  - Site isn't open to the world
  - The size of the team and the productions isn't huge
+
+In general, this simple team cooperation tool isn't and will not aim to be
+bullet proof and durable. It's just a place for the team to keep information
+up to date.

@@ -1,2 +1,2 @@
 <?php
-system('(sleep 3;git pull)&');
+system('(sleep 1;git pull)&');

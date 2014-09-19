@@ -16,8 +16,14 @@ function __getBase() {
     $base = str_replace($fname, '', $self);
     return $base;
 }
+function __getUri() {
+    $ret = preg_replace('/^' . preg_quote(BASE, '/') . '/', '', $_SERVER['REQUEST_URI']));
+    if(!isset($ret{0}))
+        $ret = 'index.php';
+    return $ret;
+}
 define('BASE', __getBase());
-define('URI', preg_replace('/^' . preg_quote(BASE, '/') . '/', '', $_SERVER['REQUEST_URI']));
+define('URI', __getUri());
 /*************************
  * Simple template engine
  *************************/

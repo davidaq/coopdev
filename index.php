@@ -34,8 +34,17 @@ define('URI', __getUri());
  **************/
 function CFG($key) {
     global $_CFG;
-    if($_CFG === NULL)
-        $_CFG = include 'config.php';
+    if($_CFG === NULL) {
+        if(file_exists('config.php')) {
+            $_CFG = include 'src/config.default.php';
+            $spec = include 'config.php';
+            foreach($spec as $k=>$v) {
+                $_CFG[$k] = $v;
+            }
+        } else
+            $_CFG = include 'src/config.default.php';
+        
+    }
     if(isset($_CFG[$key])) {
         return $_CFG[$key];
     }

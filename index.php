@@ -12,6 +12,7 @@ function mstime() {
     return ceil(microtime(true) * 1000);
 }
 define('REQUEST_TIME', mstime());
+define('VERSION', file_get_contents('version'));
 /*******************************************
  * Examine the current location of the site
  *******************************************/

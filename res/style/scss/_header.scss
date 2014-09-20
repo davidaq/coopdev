@@ -2,7 +2,8 @@
   border-bottom: 1px solid #ccc;
   background: #fff;
   box-shadow: 0 0 5px #777;
-  .dropdown-menu {
+  height: 65px;
+  .head-nav-menu {
     width: 250px;
     a {
       position: relative;
@@ -37,12 +38,34 @@
   .container {
     position: relative;
   }
-  .buttons {
+  .account {
     position: absolute;
     right: 5px;
     top: 16px;
-    button {
-
+    img.avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      box-shadow: 0 0 2px #777;
+      position: relative;
+      top: -12px;
+    }
+    span.username {
+      display: inline-block;
+      padding-left: 5px;
+    }
+    .userinfo {
+      display: block;
+      cursor: pointer;
+      position: relative;
+      font-weight: bold;
+      small {
+        font-weight: normal;
+        color: #aaa;
+      }
+    }
+    .dropdown-menu {
+      top: 70%;
     }
   }
 }

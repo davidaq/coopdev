@@ -1,0 +1,16 @@
+.login {
+    margin-top: 5%;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #777;
+    padding: 10px;
+    h3 {
+        margin: 0 0 10px 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .errormsg {
+        line-height: 35px;
+        color: $brand-danger;
+    }
+}

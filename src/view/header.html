@@ -25,7 +25,7 @@
                   {{Site Title}}
                   <span class="caret"></span>
               </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="head-nav-menu-btn">
+              <ul class="dropdown-menu head-nav-menu" role="menu" aria-labelledby="head-nav-menu-btn">
                   <li><a href="<%=BASE%>">{{Events}} <em>{{What's going on}}</em></a></li>
                   <li><a href="tasks">{{Tasks}} <em>{{What needs to be done}}</em></a></li>
                   <li><a href="wiki">{{Wiki}} <em>{{What we know}}</em></a></li>
@@ -41,10 +41,25 @@
             <a href="team" class="nav-link" ref="" title="{{Who we are}}">{{Team}}</a>
             <a href="dev" class="nav-link" ref="" title="{{Git, Cron, Monitor}}">{{Dev-Tool}}</a>
           </span>
-          <div class="buttons">
-            <button class="btn btn-primary">{{Login}}</button>
-            <button class="btn btn-default">{{Register}}</button>
+          <div class="account dropdown">
+            <%if(user()) {%>
+            <div class="userinfo" id="account-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img class="avatar" src="<%=user('avatar')%>"/>
+              <span class="username">
+                <%=user('name')%><br/>
+                <small><%=user('title')%></small>
+              </span>
+            </div>
+            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="account-nav-menu-btn">
+              <li><a href="settings">{{Settings}}</a></li>
+              <li><a href="logout">{{Logout}}</a></li>
+            </ul>
+            <%}else{%>
+              <a href="login" class="btn btn-primary">{{Login}}</a>
+              <a href="register" class="btn btn-default">{{Register}}</a>
+            <%}%>
           </div>
       </div>
     </div>
+    <br/>
     <div class="container main-body">

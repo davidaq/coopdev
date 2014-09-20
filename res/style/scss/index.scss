@@ -9,12 +9,19 @@ $brand-danger:  #d9534f;
   padding: 0;
   font-family: 华文黑体, 黑体, arial;
 }
+html {
+  height: 100%;
+}
 body {
+  height: 100%;
   background: #eee;
   @import 'header';
   @import 'footer';
   @import 'infopage';
   .main-body {
-    height: 740px;
+    min-height: 60%;
+    @media (min-width : 600px) {
+      min-height: 80%;
+    }
   }
 }

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%- CFG.site_title %></title>
-  </head>
-  <body>
-    {{Nothing Here}}
-  </body>
-</html>
+<%=tpl('header')%>
+<%=tpl('info', array(
+  'icon' => 'warning-sign',
+  'title' => LANG('404 not found'),
+  'content' => LANG('The resource you are requesting does not exist or has been removed')
+))%>
+<%=tpl('footer')%>

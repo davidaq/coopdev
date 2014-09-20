@@ -1,0 +1,32 @@
+.info {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #777;
+  &.large {
+    width: 600px;
+    height: 100px;
+    margin: 150px auto;
+    position:relative;
+    color: #433;
+    .glyphicon {
+      font-size: 60px;
+      position: absolute;
+      left: 20px;
+      top: 20px;
+    }
+    h2 {
+      position: absolute;
+      left: 110px;
+      top: 15px;
+      font-size: 40px;
+      margin: 0;
+      padding: 0;
+    }
+    div.content {
+      position: absolute;
+      left: 110px;
+      top: 65px;
+      color: #999;
+    }
+  }
+}

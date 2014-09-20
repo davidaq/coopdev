@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="Content-type" content="text/html;charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <title>{{Site Title}}</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="<%=BASE%>bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=BASE%>bootstrap/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="<%=BASE%>bootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=BASE%>bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="<%=BASE%>res/style/index.css"/>
+    <script type="text/javascript" src="<%=BASE%>res/js/header.js"></script>
+  </head>
+  <body>
+    <div class="header">
+      <div class="container">
+          <div class="dropdown visible-xs-inline">
+              <a id="head-nav-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="logo">
+                  {{Site Title}}
+                  <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="head-nav-menu-btn">
+                  <li><a href="<%=BASE%>">{{Events}} <em>{{What's going on}}</em></a></li>
+                  <li><a href="tasks">{{Tasks}} <em>{{What needs to be done}}</em></a></li>
+                  <li><a href="wiki">{{Wiki}} <em>{{What we know}}</em></a></li>
+                  <li><a href="team">{{Team}} <em>{{Who we are}}</em></a></li>
+                  <li><a href="dev">{{Dev-Tool}} <em>{{Git, Cron, Monitor}}</em></a></li>
+              </ul>
+          </div>
+          <a href="javascript:showmenu()" class="logo hidden-xs">{{Site Title}}</a>
+          <span class="hidden-xs">
+            <a href="<%=BASE%>" class="nav-link" ref="" title="{{What's going on}}">{{Events}}</a>
+            <a href="tasks" class="nav-link" ref="" title="{{What needs to be done}}">{{Tasks}}</a>
+            <a href="wiki" class="nav-link" ref="" title="{{What we know}}">{{Wiki}}</a>
+            <a href="team" class="nav-link" ref="" title="{{Who we are}}">{{Team}}</a>
+            <a href="dev" class="nav-link" ref="" title="{{Git, Cron, Monitor}}">{{Dev-Tool}}</a>
+          </span>
+          <div class="buttons">
+            <button class="btn btn-primary">{{Login}}</button>
+            <button class="btn btn-default">{{Register}}</button>
+          </div>
+      </div>
+    </div>
+    <div class="container main-body">

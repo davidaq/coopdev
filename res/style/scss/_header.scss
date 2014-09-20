@@ -1,0 +1,48 @@
+.header {
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+  box-shadow: 0 0 5px #777;
+  .dropdown-menu {
+    width: 250px;
+    a {
+      position: relative;
+      em {
+        position: absolute;
+        top: 3px;
+        right: 10px;
+        color: #aaa;
+        font-size: 12px;
+      }
+    }
+  }
+  a {
+    &.nav-link {
+      line-height: 60px;
+      height: 60px;
+      margin-right: 25px;
+      font-size: 17px;
+    }
+    &.logo {
+      line-height: 60px;
+      height: 60px;
+      margin-right: 35px;
+      font-size: 30px;
+      font-weight: bold;
+      color: #333;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+  .container {
+    position: relative;
+  }
+  .buttons {
+    position: absolute;
+    right: 5px;
+    top: 16px;
+    button {
+
+    }
+  }
+}

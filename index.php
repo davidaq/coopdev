@@ -1,36 +1,89 @@
 <?php
+/**********
+ * Utility
+ **********/
+function redirect($url) {
+    if($url{0} == '/')
+        $url = BASE . substr($url, 1);
+    header('location: ' . $url);
+    die();
+}
+function mstime() {
+    return ceil(microtime(true) * 1000);
+}
+define('REQUEST_TIME', mstime());
 /*******************************************
  * Examine the current location of the site
  *******************************************/
 function __getBase() {
-    $self = '';
-    if(isset($_SERVER['PHP_SELF'])) {
-        $self = $_SERVER['PHP_SELF'];
-    } elseif(isset($_SERVER['SCRIPT_NAME'])) {
-        $self = $_SERVER['SCRIPT_NAME'];
-    } elseif(isset($_SERVER['CONTEXT_DOCUMENT_ROOT'])) {
-        $self = str_replace($_SERVER['CONTEXT_DOCUMENT_ROOT'], '', __FILE__);
-    }
-    $p = strrpos(str_replace('\\', '/', __FILE__), '/');
-    $fname = substr(__FILE__, $p + 1);
-    $base = str_replace($fname, '', $self);
-    return $base;
+    return preg_replace('/index\.php$/', '', $_SERVER['SCRIPT_NAME']);
 }
 function __getUri() {
     $ret = preg_replace('/^' . preg_quote(BASE, '/') . '/', '', $_SERVER['REQUEST_URI']);
     if(!isset($ret{0}))
-        $ret = 'index.php';
+        return 'index.php';
+    $ret = preg_replace('/\?.*$/', '', $ret);
+    if(substr($ret, strlen($ret) - 4) != '.php')
+        $ret .= '.php';
     return $ret;
 }
 define('BASE', __getBase());
 define('URI', __getUri());
+/**************
+ * Load Config
+ **************/
+function CFG($key) {
+    global $_CFG;
+    if($_CFG === NULL)
+        $_CFG = include 'config.php';
+    if(isset($_CFG[$key])) {
+        return $_CFG[$key];
+    }
+    return NULL;
+}
+/**************
+ * Load Language
+ **************/
+function LANG($key) {
+    global $_LANG;
+    $v = CFG($key);
+    if($v !== NULL)
+        return $v;
+    if($_LANG === NULL)
+        $_LANG = parse_ini_file('language/' . CFG('language') . '.ini');
+    if(isset($_LANG[$key]))
+        return $_LANG[$key];
+    return $key;
+}
 /*************************
  * Simple template engine
  *************************/
+function evaluate($_EVAL, $ROOT) {
+    eval($_EVAL);
+}
 function tpl($path, $data=array()) {
     $path = "src/view/$path.html";
     if(file_exists($path)) {
-        return file_get_contents($path);
+        $c =  file_get_contents($path);
+        $c = preg_replace_callback('/\{\{\s*(.+?)\s*\}\}/', function($m) {
+            return '<?php echo LANG(\'' . addslashes($m[1]) . '\');?>'; 
+        }, $c);
+        $c = preg_replace_callback('/\<%([\-\=])\s*(.+?)%\s*\>/s', function($m) {
+            if($m[1] == '-')
+                $c = 'htmlentities(' . $m[2] . ')';
+            else 
+                $c = $m[2];
+            return '<?php echo ' . $c . ';?>'; 
+        }, $c);
+        $c = preg_replace('/\<%(.+?)%\>/s', '<?php $1; ?>', $c);
+        $eval = '';
+        if(is_array($data)) {
+            foreach(array_keys($data) as $____) {
+                $eval .= '$' . $____ . '=' . '$ROOT[\'' . $____ . '\'];';
+            }
+        }
+        $eval .= '?>' . $c;
+        return evaluate($eval, $data);
     } else {
         return " ERROR: $path not found ";
     }
@@ -43,7 +96,7 @@ function import($_PATH) {
     if(file_exists($_PATH)) {
         include $_PATH;
     } else {
-        die(tpl('404'));
+        die(tpl('404', array('hehe'=>'123')));
     }
 }
 /***************************

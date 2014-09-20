@@ -1,0 +1,21 @@
+.footer {
+  min-height: 100px;
+  background: #fff;
+  box-shadow: 0 0 7px #555;
+  position: relative;
+  top: 20px;
+  padding-bottom: 10px;
+  color: #777;
+  font-size: 13px;
+  line-height: 20px;
+  h3 {
+    color: #444;
+  }
+  .copyright {
+    text-align: center;
+    padding: 15px 0 0 13px;
+    margin-top: 20px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+  }
+}

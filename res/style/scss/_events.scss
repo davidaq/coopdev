@@ -1,5 +1,9 @@
 .events {
     & > .row > div {
+        @media (max-width:768px) {
+            padding-left: 3px;
+            padding-right: 3px;
+        }
         padding-left: 7px;
         padding-right: 7px;
     }

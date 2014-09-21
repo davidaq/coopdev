@@ -1,7 +1,32 @@
 <%=tpl('header')%>
-<div class="container">
+<script type="text/javascript" src="res/js/events.js"></script>
+<script type="text/template" id="caltpl">
+    <div class="week">
+    [[_.each(['{{Sun}}','{{Mon}}','{{Tue}}','{{Wed}}','{{Thu}}','{{Fri}}','{{Sat}}'], function(day) {]]
+        <div class="day title">[[=day]]</div>
+    [[})]]
+    [[_.each(days, function(day, index) {console.log(day);]]
+        [[if(index % 7 ==0) {]]
+            </div> <div class="week">
+        [[}]]
+        <div class="day[[if(day.istoday){]] today[[}if(day.active){]] active[[}]]">
+            <div class="daynum">[[=day.day]]</div>
+        </div>
+    [[})]]
+    </div>
+</script>
+<div class="container events">
     <div class="row">
-        <div class="">
+        <div class="col-sm-4">
+            <div class="block">
+                <h4>{{Announcements}}</h4>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="block">
+                <h4>{{Team Calendar}}</h4>
+                <div class="calendar"></div>
+            </div>
         </div>
     </div>
 </div>

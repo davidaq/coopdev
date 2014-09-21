@@ -2,11 +2,6 @@
     @include page-block;
     margin-top: 5%;
     padding: 10px;
-    h3 {
-        margin: 0 0 10px 0;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #ddd;
-    }
     .errormsg {
         line-height: 35px;
         color: $brand-danger;

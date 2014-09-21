@@ -3,6 +3,7 @@
  * Define constants
  *******************/
 function define_constants() {
+    date_default_timezone_set('Asia/Chongqing');
     define('REQUEST_TIME', mstime());
     define('VERSION', file_get_contents('version'));
     define('USER_SESSION', 'USER_SESSION');
@@ -165,6 +166,7 @@ function user($key=NULL) {
                     $u = array(
                         'name' => $u,
                         'title' => LANG('Unidentified'),
+                        'verified' => false,
                     );
                 } else {
                     $u = json_decode(data_read("user/$u/info"), true);
@@ -201,4 +203,26 @@ function import($_PATH) {
  ***************************/
 define_constants();
 session_start();
+if(get_magic_quotes_gpc()) {
+    function stripslashes_deep($value) {
+        $value = is_array($value) ?
+                    array_map('stripslashes_deep', $value) :
+                    stripslashes($value);
+        return $value;
+    }
+    $_POST = array_map('stripslashes_deep', $_POST);
+    $_GET = array_map('stripslashes_deep', $_GET);
+    $_COOKIE = array_map('stripslashes_deep', $_COOKIE);
+    $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
+}
+function escape_tpl($value) {
+    $value = is_array($value) ?
+                array_map('stripslashes_deep', $value) :
+                strtr($value, array('<%'=>'&lt;%', '%>'=>'%&gt;'));
+    return $value;
+}
+$_POST = array_map('escape_tpl', $_POST);
+$_GET = array_map('escape_tpl', $_GET);
+$_COOKIE = array_map('escape_tpl', $_COOKIE);
+$_REQUEST = array_map('escape_tpl', $_REQUEST);
 import(URI);

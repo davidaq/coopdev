@@ -1,6 +1,6 @@
 $(function() {
     new Headroom($('.header')[0], {
-      scroll: 70,
+      offset: 40,
       tolerance: 5
     }).init();
     $('.header a').tooltip({

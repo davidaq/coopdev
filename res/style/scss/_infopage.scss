@@ -1,7 +1,5 @@
 .info {
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px #777;
+  @include page-block;
   &.large {
     width: 600px;
     height: 100px;

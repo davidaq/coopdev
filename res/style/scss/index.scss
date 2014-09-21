@@ -4,6 +4,12 @@ $brand-info:    #5bc0de;
 $brand-warning: #f0ad4e;
 $brand-danger:  #d9534f;
 
+@mixin page-block {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #777;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -20,9 +26,6 @@ body {
   @import 'infopage';
   @import 'login';
   .main-body {
-    min-height: 60%;
-    @media (min-width : 600px) {
-      min-height: 80%;
-    }
+    min-height: 80%;
   }
 }

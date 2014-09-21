@@ -8,17 +8,18 @@
 
     <title>{{Site Title}}</title>
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="<%=BASE%>bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<%=BASE%>bootstrap/css/bootstrap-theme.min.css">
-    <script type="text/javascript" src="<%=BASE%>bootstrap/js/jquery.min.js"></script>
-    <script type="text/javascript" src="<%=BASE%>bootstrap/js/bootstrap.min.js"></script>
+    <!-- dependencies -->
+    <link rel="stylesheet" href="<%=BASE%>dep/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<%=BASE%>dep/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="<%=BASE%>dep/js/jquery.min.js"></script>
+    <script type="text/javascript" src="<%=BASE%>dep/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="<%=BASE%>dep/js/headroom.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<%=BASE%>res/style/index.css"/>
     <script type="text/javascript" src="<%=BASE%>res/js/header.js"></script>
   </head>
   <body>
-    <div class="header">
+    <div class="header headroom">
       <div class="container">
           <div class="dropdown visible-xs-inline">
               <a id="head-nav-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="logo">
@@ -61,5 +62,5 @@
           </div>
       </div>
     </div>
-    <br/>
+    <div class="header-pad"></div>
     <div class="container main-body">

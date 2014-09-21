@@ -1,8 +1,40 @@
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 65px;
+  display: block;
+  z-index: 10;
+  @keyframes fade-out { from {top:0} to {top:-65px} }
+  @-webkit-keyframes fade-out { from {top:0} to {top:-65px} }
+  @-moz-keyframes fade-out { from {top:0} to {top:-65px} }
+  @-o-keyframes fade-out { from {top:0} to {top:-65px} }
+  @-ms-keyframes fade-out { from {top:0} to {top:-65px} }
+  @keyframes fade-in { from {top:-65px} to {top:0} }
+  @-webkit-keyframes fade-in { from {top:-65px} to {top:0} }
+  @-moz-keyframes fade-in { from {top:-65px} to {top:0} }
+  @-o-keyframes fade-in { from {top:-65px} to {top:0} }
+  @-ms-keyframes fade-in { from {top:-65px} to {top:0} }
+  &.headroom--unpinned {
+    top: -65px;
+    animation: fade-out 500ms;
+    -webkit-animation: fade-out 500ms;
+    -moz-animation: fade-out 500ms;
+    -o-animation: fade-out 500ms;
+    -ms-animation: fade-out 500ms;
+  }
+  &.headroom--pinned {
+    top: 0;
+    animation: fade-in 500ms;
+    -webkit-animation: fade-in 500ms;
+    -moz-animation: fade-in 500ms;
+    -o-animation: fade-in 500ms;
+    -ms-animation: fade-in 500ms;
+  }
   border-bottom: 1px solid #ccc;
   background: #fff;
   box-shadow: 0 0 5px #777;
-  height: 65px;
   .head-nav-menu {
     width: 250px;
     a {
@@ -33,6 +65,9 @@
       &:hover {
         color: #000;
       }
+    }
+    &.btn {
+      font-weight: bold;
     }
   }
   .container {
@@ -68,4 +103,7 @@
       top: 70%;
     }
   }
+}
+.header-pad {
+  height: 70px;
 }

@@ -1,8 +1,6 @@
 .login {
+    @include page-block;
     margin-top: 5%;
-    background: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #777;
     padding: 10px;
     h3 {
         margin: 0 0 10px 0;

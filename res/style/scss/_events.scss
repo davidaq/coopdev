@@ -1,7 +1,9 @@
 .events {
     .block {
         @include page-block;
-        min-height: 100%;
+        @media (min-width:768px) {
+            min-height: 450px;
+        }
     }
     .calendar {
         border-left: 1px solid #ccc;
@@ -15,6 +17,10 @@
                 float: left;
                 width: 14%;
                 height: 60px;
+                overflow: hidden;
+                @media (max-width:500px) {
+                    height: 90px;
+                }
                 background: #eee;
                 position: relative;
                 &.title {
@@ -31,18 +37,47 @@
                     }
                 }
                 &.today {
+                    .daynum {
+                        color: #a77;
+                        text-decoration: underline;
+                    }
                 }
                 .daynum {
                     position: absolute;
                     top: 0; left: 0; right: 0; bottom: 0;
-                    font-size: 25px;
                     color: #ccc;
-                    @media (max-width:700px) {
-                        font-size: 12px;
-                    }
+                    font-size: 25px;
                     line-height: 60px;
+                    @media (max-width:500px) {
+                        font-size: 15px;
+                        line-height: 90px;
+                    }
+                    &.small {
+                        font-size: 10px;
+                        text-align: right;
+                        top: auto;
+                        height: 20px;
+                        line-height: 20px;
+                        right: 2px;
+                        font-weight: normal;
+                    }
                     font-weight: bold;
                     text-align: center;
+                    z-index: 4;
+                }
+                .marks {
+                    position: absolute;
+                    top: 0; left: 2px; right: 0; bottom: 0;
+                    overflow: hidden;
+                    z-index: 5;
+                    .badge {
+                        font-weight: normal;
+                        background: rgba(0, 0, 0, 0.4);
+                        text-shadow: 0 0 2px #000;
+                        @media (max-width:500px) {
+                            font-size: 10px;
+                        }
+                    }
                 }
             }
         }

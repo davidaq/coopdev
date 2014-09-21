@@ -5,12 +5,17 @@
     [[_.each(['{{Sun}}','{{Mon}}','{{Tue}}','{{Wed}}','{{Thu}}','{{Fri}}','{{Sat}}'], function(day) {]]
         <div class="day title">[[=day]]</div>
     [[})]]
-    [[_.each(days, function(day, index) {console.log(day);]]
+    [[_.each(days, function(day, index) {]]
         [[if(index % 7 ==0) {]]
             </div> <div class="week">
         [[}]]
         <div class="day[[if(day.istoday){]] today[[}if(day.active){]] active[[}]]">
-            <div class="daynum">[[=day.day]]</div>
+            <div class="marks">
+            [[if(day.mark){_.each(day.mark, function(mark){]]
+                    <span class="badge">[[=mark.title]]</span>
+            [[})}]]
+            </div>
+            <div class="daynum[[if(day.mark){]] small[[}]]">[[=day.day]]</div>
         </div>
     [[})]]
     </div>

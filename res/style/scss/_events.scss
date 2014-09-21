@@ -1,4 +1,8 @@
 .events {
+    & > .row > div {
+        padding-left: 7px;
+        padding-right: 7px;
+    }
     .block {
         @include page-block;
         @media (min-width:768px) {

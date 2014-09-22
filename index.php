@@ -42,9 +42,8 @@ function data_save($file, $c) {
     if(isset($dir[1])) {
         unset($dir[count($dir) - 1]);
         $dir = implode('/', $dir);
-        mkdir("data/$dir");
+        @mkdir("data/$dir", '0777', true);
     }
-    mkdir($file, '0777', true);
     file_put_contents("data/$file.php", $c);
 }
 function sync_begin() {
@@ -176,7 +175,7 @@ function user($key=NULL) {
                     $u = json_decode(data_read("user/$u/info"), true);
                 }
                 $u['id'] = $id;
-                if(data_exists("user/$u/avatar.jpg")) {
+                if(data_exists("user/$id/avatar.jpg")) {
                     $u['avatar'] = BASE . "data/user/$u/avatar.jpg";
                 } else {
                     $u['avatar'] = BASE . 'res/images/default-avatar.jpg';

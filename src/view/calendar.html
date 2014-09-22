@@ -21,9 +21,7 @@
           <div class="day[[if(day.istoday){]] today[[}if(day.active){]] active[[}]]">
               <div class="marks" date="[[=day.year]]-[[=day.month]]-[[=day.day]]">
               [[if(day.mark){_.each(day.mark, function(mark){]]
-                <span class="badge">
-                  [[=mark.title]]
-                </span>
+                <span class="badge">[[=mark.title]]</span>
               [[})}]]
               </div>
               <div class="daynum[[if(day.mark){]] small[[}]]">[[=day.day]]</div>

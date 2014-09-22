@@ -18,6 +18,18 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BASE%>res/style/index.css"/>
     <script type="text/javascript" src="<%=BASE%>res/js/header.js"></script>
+    <style>
+      .visible-user {
+        <%if(!user()){%>
+          display: none;
+        <%}%>
+      }
+      .visible-verified-user {
+        <%if(!user('verified')){%>
+          display: none;
+        <%}%>
+      }
+    </style>
   </head>
   <body>
     <div class="header headroom">

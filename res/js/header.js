@@ -1,3 +1,13 @@
+$(function() {
+    new Headroom($('.header')[0], {
+      offset: 40,
+      tolerance: 5
+    }).init();
+    $('.header a').tooltip({
+        toggle: 'tooltip',
+        placement: 'bottom'
+    });
+});
 (function() {
     var userinfo = {};
     var requests = {};
@@ -38,19 +48,12 @@
             getUsers();
         }
     }
-    // interval fall back for arrive.js
-    setInterval(function() {
-        $('.user-sign').each(userSignArived);
-    }, 500);
-    $(document).arrive('.user-sign', userSignArived);
+    try {
+        $(document).arrive('.user-sign', userSignArived);
+    }catch(e) {
+        // interval fall back for arrive.js
+        setInterval(function() {
+            $('.user-sign').each(userSignArived);
+        }, 500);
+    }
 })();
-$(function() {
-    new Headroom($('.header')[0], {
-      offset: 40,
-      tolerance: 5
-    }).init();
-    $('.header a').tooltip({
-        toggle: 'tooltip',
-        placement: 'bottom'
-    });
-});

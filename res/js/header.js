@@ -25,7 +25,9 @@
             }
         }, 'json');
     }, 10);
-    $(document).arrive('.user-sign', function() {
+    var userSignArived = function() {
+        $(this).removeClass('user-sign');
+        $(this).addClass('user-info');
         var uid = $(this).html();
         if(userinfo[uid]) {
             setUser(this, uid);
@@ -35,7 +37,12 @@
             requests[uid] = [this];
             getUsers();
         }
-    });
+    }
+    // interval fall back for arrive.js
+    setInterval(function() {
+        $('.user-sign').each(userSignArived);
+    }, 500);
+    $(document).arrive('.user-sign', userSignArived);
 })();
 $(function() {
     new Headroom($('.header')[0], {

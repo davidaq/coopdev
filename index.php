@@ -13,6 +13,9 @@ function define_constants() {
 /**********
  * Utility
  **********/
+function iescape($val) {
+    return strtr($val, array('&'=>'&amp;',' '=>'&nbsp;','<'=>'&lt;','>'=>'&gt;'));
+}
 function redirect($url) {
     if($url{0} != '/')
         $url = BASE . substr($url, 1);
@@ -41,7 +44,7 @@ function data_save($file, $c) {
         $dir = implode('/', $dir);
         mkdir("data/$dir");
     }
-    mkdir($file);
+    mkdir($file, '0777', true);
     file_put_contents("data/$file.php", $c);
 }
 function sync_begin() {
@@ -162,6 +165,7 @@ function user($key=NULL) {
         if(isset($_SESSION[USER_SESSION])) {
             $u = $_SESSION[USER_SESSION];
             if(data_exists("user/$u/pwd")) {
+                $id = $u;
                 if(!data_exists("user/$u/info")) {
                     $u = array(
                         'name' => $u,
@@ -171,6 +175,7 @@ function user($key=NULL) {
                 } else {
                     $u = json_decode(data_read("user/$u/info"), true);
                 }
+                $u['id'] = $id;
                 if(data_exists("user/$u/avatar.jpg")) {
                     $u['avatar'] = BASE . "data/user/$u/avatar.jpg";
                 } else {

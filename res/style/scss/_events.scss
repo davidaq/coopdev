@@ -42,16 +42,19 @@
             padding-right: 30%;
             .wrap {
               @include page-block;
-                .main {
-                  max-height: 200px;
-                  overflow: auto;
-                  .item {
-                    padding: 5px;
-                    .content {
-                      border-bottom: 1px solid #eee;
-                      margin: 5px 0;
-                    }
+              .main {
+                textarea {
+                  margin-bottom: 5px;
+                }
+                max-height: 200px;
+                overflow: auto;
+                .item {
+                  padding: 5px;
+                  .content {
+                    border-bottom: 1px solid #eee;
+                    margin: 5px 0;
                   }
+                }
               }
             }
           }

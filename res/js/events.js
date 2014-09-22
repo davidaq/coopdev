@@ -8,7 +8,14 @@ var setCalendar = function() {
     $(function() {
         tpl = _.template($('#caltpl').html());
     });
+    var cy, cm;
     return function(year, month) {
+        if(!year)
+            year = cy;
+        if(!month)
+            month = cm;
+        cy = year;
+        cm = month;
         $.get('calendar', {year:year,month:month}, function(cdata) {
             $('.events #calendar').html(tpl(cdata));
         }, 'JSON');
@@ -17,8 +24,15 @@ var setCalendar = function() {
 $(function() {
     var now = new Date();
     setCalendar(now.getFullYear(), now.getMonth() + 1);
-    var fadeTimeout;
     $('#calendar').on('click', '.plus', function(e) {
+        var val = $(this).prev('textarea').val();
+        var date = $(this).closest('.wrap').attr('date');
+        $.post('post/calendar?action=add', {content:val,date:date}, function(result) {
+            console.log(result);
+            $(this).prev('textarea').val('');
+            $('.markitem').fadeOut(300);
+            setCalendar();
+        });
     });
     $('#calendar').on('click', '.trash', function(e) {
         $(this).closest('.item').fadeOut(200, function() {
@@ -30,6 +44,7 @@ $(function() {
     });
     $('#calendar').on('click', '.done, .markitem', function() {
         $('.markitem').fadeOut(300);
+        setCalendar();
     });
     $('#calendar').on('click', '.marks', function() {
         $('.markitem.mark-' + $(this).attr('date')).fadeIn(300);

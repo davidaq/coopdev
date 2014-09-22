@@ -30,7 +30,7 @@
               <div class="daynum[[if(day.mark){]] small[[}]]">[[=day.day]]</div>
           </div>
           <div class="markitem mark-[[=day.year]]-[[=day.month]]-[[=day.day]]">
-            <div class="wrap">
+            <div class="wrap" date="[[=day.year]]-[[=day.month]]-[[=day.day]]">
               <h4>
                 <span class="glyphicon glyphicon-calendar"></span>
                 [[=day.year]]-[[=day.month]]-[[=day.day]]
@@ -48,6 +48,7 @@
                   </div>
                 [[})}]]
                 <div class="item">
+                  <textarea class="form-control" rows="2"></textarea>
                   <button class="plus btn btn-sm btn-default pull-right visible-verified-user">
                     <span class="glyphicon glyphicon-plus-sign"></span> {{Add New}}
                   </button>

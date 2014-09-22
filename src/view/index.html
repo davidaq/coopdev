@@ -37,8 +37,8 @@
                 <button class="done btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-remove"></span></button>
               </h4>
               <div class="main">
-                [[if(day.mark){_.each(day.mark, function(mark){]]
-                  <div class="item">
+                [[if(day.mark){_.each(day.mark, function(mark, index){]]
+                  <div class="item" key="[[=index]]">
                     <b class="badge">[[=mark.title]]</b>
                     <span class="user-sign">[[=mark.user]]</span>
                     <button class="btn btn-sm btn-default pull-right trash visible-verified-user">

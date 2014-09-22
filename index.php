@@ -28,6 +28,11 @@ function mstime() {
 function data_exists($file) {
     return file_exists("data/$file.php");
 }
+function data_remove($file) {
+    if(file_exists("data/$file.php")) {
+        unlink("data/$file.php");
+    }
+}
 function data_read($file) {
     if(data_exists($file)) {
         $c = file("data/$file.php");
@@ -157,31 +162,34 @@ function tpl($path, $data=array()) {
 /******************
  * user accounting
  ******************/
+function getUser($u) {
+    if(data_exists("user/$u/pwd")) {
+        $id = $u;
+        if(!data_exists("user/$u/info")) {
+            $u = array(
+                'name' => $u,
+                'title' => LANG('Unidentified'),
+                'verified' => false,
+            );
+        } else {
+            $u = json_decode(data_read("user/$u/info"), true);
+        }
+        $u['id'] = $id;
+        if(file_exists("data/user/$id/avatar.jpg")) {
+            $u['avatar'] = BASE . "data/user/$id/avatar.jpg";
+        } else {
+            $u['avatar'] = BASE . 'res/images/default-avatar.jpg';
+        }
+        return $u;
+    }
+    return NULL;
+}
 function user($key=NULL) {
     global $_USER;
     if($_USER === NULL) {
         $_USER = 1;
         if(isset($_SESSION[USER_SESSION])) {
-            $u = $_SESSION[USER_SESSION];
-            if(data_exists("user/$u/pwd")) {
-                $id = $u;
-                if(!data_exists("user/$u/info")) {
-                    $u = array(
-                        'name' => $u,
-                        'title' => LANG('Unidentified'),
-                        'verified' => false,
-                    );
-                } else {
-                    $u = json_decode(data_read("user/$u/info"), true);
-                }
-                $u['id'] = $id;
-                if(data_exists("user/$id/avatar.jpg")) {
-                    $u['avatar'] = BASE . "data/user/$u/avatar.jpg";
-                } else {
-                    $u['avatar'] = BASE . 'res/images/default-avatar.jpg';
-                }
-                $_USER = $u;
-            }
+            $_USER = getUser($_SESSION[USER_SESSION]);
         }
     }
     if(!$key) {
@@ -221,7 +229,7 @@ if(get_magic_quotes_gpc()) {
 }
 function escape_tpl($value) {
     $value = is_array($value) ?
-                array_map('stripslashes_deep', $value) :
+                array_map('escape_tpl', $value) :
                 strtr($value, array('<%'=>'&lt;%', '%>'=>'%&gt;'));
     return $value;
 }

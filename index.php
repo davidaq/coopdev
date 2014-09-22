@@ -14,7 +14,7 @@ function define_constants() {
  * Utility
  **********/
 function iescape($val) {
-    return strtr($val, array('&'=>'&amp;',' '=>'&nbsp;','<'=>'&lt;','>'=>'&gt;'));
+    return strtr($val, array(' '=>'&nbsp;','<'=>'&lt;','>'=>'&gt;'));
 }
 function redirect($url) {
     if($url{0} != '/')
@@ -60,7 +60,7 @@ function sync_begin() {
 function sync_end() {
     global $_LOCK_FP;
     if(!$_LOCK_FP) return;
-    flock($_LOCK_FP);
+    flock($_LOCK_FP, LOCK_UN);
     fclose($_LOCK_FP);
     $_LOCK_FP = NULL;
 }
@@ -73,6 +73,21 @@ function posted() {
             return false;
     }
     return true;
+}
+function human_time($time) {
+    $time *= 1;
+    $d = time() - $time;
+    if($d < 120) {
+        return LANG('just now');
+    } elseif ($d < 300) {
+        return LANG('in 5 minutes');
+    } elseif ($d < 3600) {
+        return LANG('%% minutes before', ceil($d / 60));
+    } elseif ($d < 15000) {
+        return LANG('%% hours before', floor($d / 3600));
+    } else {
+        return date('y/m/d H:i', $time);
+    }
 }
 /*******************************************
  * Examine the current location of the site
@@ -113,7 +128,7 @@ function CFG($key) {
 /**************
  * Load Language
  **************/
-function LANG($key) {
+function LANG($key, $replacement='') {
     global $_LANG;
     $v = CFG($key);
     if($v !== NULL)
@@ -121,7 +136,8 @@ function LANG($key) {
     if($_LANG === NULL)
         $_LANG = parse_ini_file('language/' . CFG('language') . '.ini');
     if(isset($_LANG[$key]))
-        return $_LANG[$key];
+        $key = $_LANG[$key];
+    $key = str_replace('%%', $replacement, $key);
     return $key;
 }
 /*************************
@@ -203,7 +219,7 @@ function user($key=NULL) {
  * Import wrap
  **************/
 function import($_PATH) {
-    $_PATH = "src/action/$_PATH";
+    $_PATH = "src/$_PATH";
     if(file_exists($_PATH)) {
         include $_PATH;
     } else {
@@ -237,4 +253,4 @@ $_POST = array_map('escape_tpl', $_POST);
 $_GET = array_map('escape_tpl', $_GET);
 $_COOKIE = array_map('escape_tpl', $_COOKIE);
 $_REQUEST = array_map('escape_tpl', $_REQUEST);
-import(URI);
+import('action/' . URI);

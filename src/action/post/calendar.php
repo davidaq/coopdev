@@ -1,4 +1,5 @@
 <?php
+import('model/status.php');
 if($_GET['action'] == 'add') {
     if(user() && user('verified') && posted('date', 'content')) {
         $dataitem = 'calendar/' . $_POST['date'];
@@ -13,6 +14,7 @@ if($_GET['action'] == 'add') {
         $c = implode('</br>', $lines);
         $o[] = array('title'=>$t, 'content'=>$c, 'user'=>user('id'));
         data_save($dataitem, json_encode($o));
+        post_status(LANG('modify the calendar at %%', $_POST['date']));
     }
 } elseif($_GET['action'] == 'delete') {
     if(user() && user('verified') && posted('date', 'key')) {
@@ -29,5 +31,6 @@ if($_GET['action'] == 'add') {
         } else {
             data_save($dataitem, json_encode($o));
         }
+        post_status(LANG('modify the calendar at %%', $_POST['date']));
     }
 }

@@ -1,0 +1,74 @@
+<script type="text/javascript" src="res/js/calendar.js"></script>
+<script type="text/template" id="caltpl">
+  [[print('<script type="text/javascript">')]]
+    $('#curmonth').html('[[=year]] - [[=month]]');
+    function prevmonth() {
+        setCalendar([[=prevyear]], [[=prevmonth]]);
+    }
+    function nextmonth() {
+        setCalendar([[=nextyear]], [[=nextmonth]]);
+    }
+  [[print('<\/script>')]]
+    <div class="calendar">
+      <div class="week">
+      [[_.each(['{{Sun}}','{{Mon}}','{{Tue}}','{{Wed}}','{{Thu}}','{{Fri}}','{{Sat}}'], function(day) {]]
+          <div class="day title">[[=day]]</div>
+      [[})]]
+      [[_.each(days, function(day, index) {]]
+          [[if(index % 7 ==0) {]]
+              </div> <div class="week">
+          [[}]]
+          <div class="day[[if(day.istoday){]] today[[}if(day.active){]] active[[}]]">
+              <div class="marks" date="[[=day.year]]-[[=day.month]]-[[=day.day]]">
+              [[if(day.mark){_.each(day.mark, function(mark){]]
+                <span class="badge">
+                  [[=mark.title]]
+                </span>
+              [[})}]]
+              </div>
+              <div class="daynum[[if(day.mark){]] small[[}]]">[[=day.day]]</div>
+          </div>
+          <div class="markitem mark-[[=day.year]]-[[=day.month]]-[[=day.day]]">
+            <div class="wrap" date="[[=day.year]]-[[=day.month]]-[[=day.day]]">
+              <h4>
+                <span class="glyphicon glyphicon-calendar"></span>
+                [[=day.year]]-[[=day.month]]-[[=day.day]]
+                <button class="done btn btn-sm btn-default pull-right"><span class="glyphicon glyphicon-remove"></span></button>
+              </h4>
+              <div class="main">
+                [[if(day.mark){_.each(day.mark, function(mark, index){]]
+                  <div class="item" key="[[=index]]">
+                    <b class="badge">[[=mark.title]]</b>
+                    <span class="user-sign">[[=mark.user]]</span>
+                    <button class="btn btn-sm btn-default pull-right trash visible-verified-user">
+                      <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <div class="content">[[=mark.content]]</div>
+                  </div>
+                [[})}]]
+                <div class="item visible-verified-user">
+                  <textarea class="form-control" rows="2"></textarea>
+                  <button class="plus btn btn-sm btn-default pull-right">
+                    <span class="glyphicon glyphicon-plus-sign"></span> {{Add New}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+      [[})]]
+      </div>
+    </div>
+</script>
+<div class="block">
+    <h4>
+      <span class="glyphicon glyphicon-calendar"></span>
+      {{Team Calendar}}
+      <small class="pull-right">
+        <a href="javascript:prevmonth()" class="glyphicon glyphicon-chevron-left"></a>
+        <span id="curmonth"></span>
+        <a href="javascript:nextmonth()" class="glyphicon glyphicon-chevron-right"></a>
+        &nbsp;&nbsp;
+      </small>
+    </h4>
+    <div id="calendar"></div>
+</div>

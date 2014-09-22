@@ -23,6 +23,7 @@ $brand-danger:  #d9534f;
   margin: 0;
   padding: 0;
   font-family: 华文黑体, 黑体, arial;
+  outline: none;
 }
 html {
   height: 100%;
@@ -39,6 +40,9 @@ body {
     min-height: 80%;
   }
 }
+.hidden-start {
+    display: none;
+}
 .user-sign {
     display: none;
     margin: 0 5px;
@@ -51,3 +55,26 @@ body {
     font-size: 12px;
     font-weight: bold;
 }   
+.label-did {
+    background: #777;
+}
+.label-say {
+    background: #428bca;
+}
+.label-think {
+    background: #5cb85c;
+}
+.label-warn {
+    background: #d9534f;
+}
+.status {
+    .status-item {
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+        small {
+            font-size: 10px;
+            color: #999;
+            font-weight: bold;
+        }
+    }
+}

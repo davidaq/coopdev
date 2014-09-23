@@ -1,10 +1,4 @@
 var setCalendar = function() {
-    _.templateSettings = {
-        evaluate: /\[\[(.*?)\]\]/g,
-        interpolate: /\[\[=(.*?)\]\]/g,
-        excape: /\[\[\-(.*?)\]\]/g,
-    };
-    var tpl;
     $(function() {
         tpl = _.template($('#caltpl').html());
     });

@@ -10,5 +10,50 @@
     .block {
         @include page-block;
     }
+    .fetchbtn {
+        width: 100%;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+    .status {
+        font-size: 13px;
+        @media (max-width:400px) {
+            font-size: 11px;
+            .user-info {
+                img {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            .status-item {
+                .content {
+                    padding-top: 3px !important;
+                }
+            }
+        }
+        .status-item {
+            padding: 5px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            .content {
+                display: inline-block;
+                vertical-align: top;
+                padding-top: 6px;
+                max-width: 70%;
+                word-break: break-all;
+                small {
+                    font-size: 10px;
+                    color: #999;
+                    font-weight: bold;
+                    display: inline-block;
+                }
+            }
+            .trash {
+                position: absolute;
+                right: 5px;
+                top: 5px;
+            }             
+        }                 
+    }
     @import 'calendar';
 }

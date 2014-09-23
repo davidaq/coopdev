@@ -7,6 +7,14 @@ $(function() {
         toggle: 'tooltip',
         placement: 'bottom'
     });
+    $(document).on('click', 'button', function() {
+        var texts = $('span.text', this);
+        if(texts[1]) {
+            texts.each(function() {
+                $(this).toggle();
+            });
+        }
+    });
 });
 (function() {
     var userinfo = {};
@@ -56,4 +64,9 @@ $(function() {
             $('.user-sign').each(userSignArived);
         }, 500);
     }
+    _.templateSettings = {
+        evaluate : /\[\[(.*?)\]\]/g,
+        escape : /\[\[\-(.*?)\]\]/g,
+        interpolate : /\[\[=(.*?)\]\]/g
+    };
 })();

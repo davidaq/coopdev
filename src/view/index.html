@@ -1,5 +1,21 @@
 <%=tpl('header')%>
 <script type="text/javascript" src="res/js/events.js"></script>
+<script type="text/template" id="status_template">
+    <div class="status-item" data-id="[[=id]]">
+        <span class="user-sign">[[=user]]</span>
+        <span class="label label-[[=type]]">[[=type_lang]]</span>
+        <div class="content">
+            [[=content]]
+            <small>- [[=human_time]]</small>
+        </div>
+        <button class="trash btn hidden-xs btn-sm btn-default hidden-start visible-for-[[=user]]">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <button class="trash btn visible-xs btn-xs btn-default hidden-start visible-for-[[=user]]">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+    </div>
+</script>
 <div class="events">
     <div class="row">
         <div class="col-md-5">
@@ -21,18 +37,23 @@
             <div class="block">
                 <h4>
                     <span class="glyphicon glyphicon-tags"></span>
-                    {{Events}}
+                    {{Activity}}
+                    <button class="btn btn-sm btn-primary pull-right visible-user" onclick="postStatus()">
+                        <span class="text">
+                            <span class="write glyphicon glyphicon-pencil"></span>
+                            {{Say something}}
+                        </span>
+                        <span class="text hidden-start">
+                            <span class="write glyphicon glyphicon-send"></span>
+                            {{Send}}
+                        </span>
+                    </button>
                 </h4>
+                <textarea class="form-control hidden-start" id="postStatusArea"></textarea>
+                <button id="fetch_new_btn" onclick="fetchNew(true)" class="fetchbtn hidden-start alert alert-info">{{New message, click to show}}</button>
                 <div class="status">
-                    <%import('model/status.php');foreach(list_status() as $status) {%>
-                        <div class="status-item">
-                            <span class="user-sign"><%=$status['user']%></span>
-                            <span class="label label-<%=$status['type']%>"><%=LANG($status['type'])%></span>
-                            <%=$status['content']%>
-                            <small>- <%=human_time($status['date'])%></small>
-                        </div>
-                    <%}%>
                 </div>
+                <button id="fetch_old_btn" onclick="fetchPrev(true)" class="fetchbtn alert alert-info">{{click to load more}}</button>
             </div>
         </div>
     </div>

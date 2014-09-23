@@ -13,7 +13,9 @@ function define_constants() {
 /**********
  * Utility
  **********/
-function iescape($val) {
+function iescape($val, $breaklines=false) {
+    if($breaklines)
+        return strtr($val, array(' '=>'&nbsp;','<'=>'&lt;','>'=>'&gt;',"\n"=>'<br/>'));
     return strtr($val, array(' '=>'&nbsp;','<'=>'&lt;','>'=>'&gt;'));
 }
 function redirect($url) {

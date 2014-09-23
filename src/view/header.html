@@ -30,6 +30,11 @@
           display: none;
         <%}%>
       }
+      <%if(user()){%>
+      .visible-for-<%=user('id')%> {
+        display: block;
+      }
+      <%}%>
     </style>
   </head>
   <body>

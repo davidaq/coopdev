@@ -25,6 +25,11 @@
           display: none;
         <%}%>
       }
+      .hidden-verified-user {
+        <%if(user('verified')){%>
+          display: none;
+        <%}%>
+      }
       .visible-verified-user {
         <%if(!user('verified')){%>
           display: none;

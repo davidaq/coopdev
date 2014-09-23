@@ -21,7 +21,7 @@ if(posted('username', 'password', 'retype')) {
     if($result)
         die(tpl('register', array('errormsg'=>$result)));
     else
-        redirect(BASE);
+        redirect('/');
 } else {
     die(tpl('register'));
 }

@@ -16,7 +16,7 @@ if(posted('username', 'password')) {
     if($result)
         die(tpl('login', array('errormsg'=>$result)));
     else
-        redirect(BASE);
+        redirect('/');
 } else {
     die(tpl('login'));
 }

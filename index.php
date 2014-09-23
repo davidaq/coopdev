@@ -19,7 +19,7 @@ function iescape($val, $breaklines=false) {
     return strtr($val, array(' '=>'&nbsp;','<'=>'&lt;','>'=>'&gt;'));
 }
 function redirect($url) {
-    if($url{0} != '/')
+    if($url{0} == '/')
         $url = BASE . substr($url, 1);
     header('location: ' . $url);
     die();

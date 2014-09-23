@@ -12,7 +12,7 @@ if($_GET['action'] == 'delete') {
 } elseif ($_GET['action'] == 'fetch') {
     die(json_encode(list_status($_GET['start'] * 1, $_GET['limit'] * 1)));
 } elseif ($_GET['action'] == 'querynew') {
-    $id = $_GET['id'];
+    $id = $_GET['id'] * 1;
     if($id < last_post_id())
         die('new');
     die('none');

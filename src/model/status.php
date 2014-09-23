@@ -10,9 +10,7 @@ function last_post_id() {
 }
 function remove_status($id, $checkuser=false) {
     $dataitem = "status/post_$id";
-    if(!data_exists($dataitem)) {
-        return;
-    }
+    if(!data_exists($dataitem)) return;
     if($checkuser) {
         if(!user()) return;
         $data = json_decode(data_read($dataitem), true);
@@ -24,11 +22,9 @@ function remove_status($id, $checkuser=false) {
     sync_begin();
     $lastidO = last_post_id();
     $lastid = $lastidO;
-    while($lastid >= 0 && !data_exists("status/post_$lastid"))
+    while($lastid > 0 && !data_exists("status/post_$lastid"))
         $lastid--;
-    if($lastid < 0)
-        $lastid = 0;
-    if(lastidO != $lastid) {
+    if($lastidO != $lastid) {
         data_save('status/id', $lastid);
     }
     sync_end();

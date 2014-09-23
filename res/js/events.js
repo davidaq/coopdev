@@ -1,19 +1,8 @@
-$(function() {
-    $('.status').on('click', '.trash', function() {
-        var item = $(this).closest('.status-item');
-        var id = item.attr('data-id');
-        item.fadeOut(300, function() {
-            item.remove();
-        });
-        $.post('post/status?action=delete', {id:id});
-    });
-    fetchPrev();
-});
 var fetchNew;
 var fetchPrev;
-    var currentLatest = 1;
-    var currentOldest = 0;
+    var currentLatest = 0;
 (function() {
+    var currentOldest = 0;
     var tpl;
     $(function () {
         tpl = _.template($('#status_template').html());
@@ -23,6 +12,21 @@ var fetchPrev;
                 if(result == 'new') $('#fetch_new_btn').fadeIn(200);
             });
         }, 3000);
+        $('.status').on('click', '.trash', function() {
+            var item = $(this).closest('.status-item');
+            var id = item.attr('data-id');
+            var refreshLatest = currentLatest == id;
+            item.fadeOut(300, function() {
+                item.remove();
+                if(refreshLatest) {
+                    currentLatest = $('.status .status-item:first').attr('data-id');
+                    if(!currentLatest)
+                        currentLatest = 0;
+                }
+            });
+            $.post('post/status?action=delete', {id:id});
+        });
+        fetchPrev();
     });
     var _fetch = function(start, limit, callback, animate) {
         if(limit > 0) $('#fetch_old_btn').hide();

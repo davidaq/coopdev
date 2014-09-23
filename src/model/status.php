@@ -4,7 +4,7 @@ function last_post_id() {
         $ret = data_read('status/id');
         $ret *= 1;
     } else {
-        $ret = 1;
+        $ret = 0;
     }
     return $ret;
 }
@@ -24,8 +24,10 @@ function remove_status($id, $checkuser=false) {
     sync_begin();
     $lastidO = last_post_id();
     $lastid = $lastidO;
-    while($lastid > 0 && !data_exists("status/post_$lastid"))
+    while($lastid >= 0 && !data_exists("status/post_$lastid"))
         $lastid--;
+    if($lastid < 0)
+        $lastid = 0;
     if(lastidO != $lastid) {
         data_save('status/id', $lastid);
     }
@@ -43,9 +45,9 @@ function post_status($content, $type='did') {
     $data = json_encode($data);
     sync_begin();
     $id = last_post_id() + 1;
-    data_save("status/post_$id", $data);
     data_save('status/id', $id);
     sync_end();
+    data_save("status/post_$id", $data);
 }
 function list_status($start=NULL, $limit=50) {
     $last = last_post_id();
@@ -55,6 +57,7 @@ function list_status($start=NULL, $limit=50) {
     } else {
         $limit = -$limit;
         if(!$start) $start = $last - $limit;
+        if($start < 0) $start = 0;
         $n = $last - $start;
         if($limit > $n)
             $limit = $n;

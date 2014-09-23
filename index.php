@@ -67,7 +67,7 @@ function sync_end() {
     $_LOCK_FP = NULL;
 }
 function password($passwd) {
-    return md5($passwd . '___');
+    return md5($passwd . CFG('secure-seed'));
 }
 function posted() {
     foreach(func_get_args() as $k) {

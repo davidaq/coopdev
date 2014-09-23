@@ -6,5 +6,7 @@ return array(
     'Site Admin' => 'you@example.com',
     
     'language' => 'cn',
-    'verify email' => '@example.com'
+    'verify email' => '@example.com',
+
+    'secure-seed' => '___', //Must set to something unpredictable!
 );

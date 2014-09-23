@@ -1,7 +1,7 @@
 var fetchNew;
 var fetchPrev;
-    var currentLatest = 0;
 (function() {
+    var currentLatest = 0;
     var currentOldest = 0;
     var tpl;
     $(function () {

@@ -101,6 +101,26 @@ if(isset($_GET['action'])) {
             ));
             echo tpl('footer');
             die();
+        } elseif($_GET['action'] == 'verify') {
+            if(in_array($_GET['hash'], user_verify_hash())) {
+                $message = LANG('Verify complete. You now have more permissions');
+                global $_USER;
+                $user = $_USER;
+                unset($user['avatar']);
+                unset($user['id']);
+                $user['verified'] = true;
+                data_save("user/$uid/info", json_encode($user));
+            } else {
+                $message = LANG('Verification key is invalid or out of date');
+            }
+            echo tpl('header');
+            echo tpl('info', array(
+                'icon' => 'send',
+                'title' => LANG('Identity Verify'),
+                'content' => $message
+            ));
+            echo tpl('footer');
+            die();
         }
     }
 }

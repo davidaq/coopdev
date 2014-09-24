@@ -172,7 +172,11 @@ function tpl($path, $data=array()) {
             }
         }
         $eval .= '?>' . $c;
-        return evaluate($eval, $data);
+        ob_start();
+        evaluate($eval, $data);
+        $ret = ob_get_contents();
+        ob_end_clean();
+        return $ret;
     } else {
         return " ERROR: $path not found ";
     }

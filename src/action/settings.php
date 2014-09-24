@@ -62,13 +62,16 @@ if(isset($_GET['action'])) {
         function user_verify_hash() {
             $arr = hex2array(md5(user('id')));
             $ret = array();
-            for($i = 0; $i < 3; $i++) {
-                $ret[] = harass($arr, CFG('secure-seed') . date('YmdH', time() - $i * 1800));
+            for($i = 0; $i < 30; $i++) {
+                $sed = ceil(time() / 60) + $i;
+                $ret[] = harass($arr, CFG('secure-seed') . $sed);
+            }
+            for($i = 1; $i < 30; $i++) {
+                $sed = ceil(time() / 60) - $i;
+                $ret[] = harass($arr, CFG('secure-seed') . $sed);
             }
             return $ret;
         }
-        print_r(user_verify_hash());
-        die();
         if($_GET['action'] == 'verifysend') {
             if(isset($_SESSION['prev_verify_time'])) {
                 $d = $_SESSION['prev_verify_time'] * 1;
@@ -87,7 +90,9 @@ if(isset($_GET['action'])) {
             $email = $_POST['email'] . CFG('verify email');
             $hash = user_verify_hash();
             $hash = $hash[0];
-            echo $hash;
+            $header = "MIME-Version: 1.0\r\nContent-type:text/html; charset=utf-8\r\n";
+            $content = tpl('verifymail', array('hash'=>$hash));
+            mail($email, LANG('Identity Verify'), $content, $header);
             echo tpl('header');
             echo tpl('info', array(
                 'icon' => 'send',

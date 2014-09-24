@@ -109,6 +109,8 @@ if(isset($_GET['action'])) {
                 unset($user['avatar']);
                 unset($user['id']);
                 $user['verified'] = true;
+                $user['title'] = '-';
+                $uid = user('id');
                 data_save("user/$uid/info", json_encode($user));
             } else {
                 $message = LANG('Verification key is invalid or out of date');

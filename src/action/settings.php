@@ -105,11 +105,11 @@ if(isset($_GET['action'])) {
             if(in_array($_GET['hash'], user_verify_hash())) {
                 $message = LANG('Verify complete. You now have more permissions');
                 global $_USER;
+                $_USER['verified'] = true;
+                $_USER['title'] = '-';
                 $user = $_USER;
                 unset($user['avatar']);
                 unset($user['id']);
-                $user['verified'] = true;
-                $user['title'] = '-';
                 $uid = user('id');
                 data_save("user/$uid/info", json_encode($user));
             } else {

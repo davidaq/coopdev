@@ -90,7 +90,7 @@ if(isset($_GET['action'])) {
             $email = $_POST['email'] . CFG('verify email');
             $hash = user_verify_hash();
             $hash = $hash[0];
-            $header = "From: do-not-reply@" . $_SERVER['HTTP_HOST'] . "\r\nContent-type:multipart/alternative; boundary=\"---SEG---\"\r\n";
+            $header = "From: do-not-reply@" . $_SERVER['HTTP_HOST'];
             $content = tpl('verifymail', array('hash'=>$hash));
             mail($email, LANG('Identity Verify'), $content, $header);
             echo tpl('header');

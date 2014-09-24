@@ -1,7 +1,14 @@
+---SEG---
+Content-type: text/plain; charset=utf-8
+
+{{Click on the link below to verify your identity}}<br/>
+http://<%=$_SERVER['HTTP_HOST']%><%=BASE%>settings?action=verify&hash=<%=$hash%>
+{{If you do not know what this is, please just ignore and delete this mail.}}
+
+---SEG---
+Content-type: text/html; charset=utf-8
+
 <html>
-  <head>
-    <title>{{Identity Verify}}</title>
-  </head>
   <body>
     {{Click on the link below to verify your identity}}<br/>
     <a href="http://<%=$_SERVER['HTTP_HOST']%><%=BASE%>settings?action=verify&hash=<%=$hash%>">

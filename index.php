@@ -49,7 +49,7 @@ function data_save($file, $c) {
     if(isset($dir[1])) {
         unset($dir[count($dir) - 1]);
         $dir = implode('/', $dir);
-        @mkdir("data/$dir", '0777', true);
+        @mkdir("data/$dir", '2777', true);
     }
     file_put_contents("data/$file.php", $c);
 }

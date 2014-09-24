@@ -112,6 +112,8 @@ if(isset($_GET['action'])) {
                 unset($user['id']);
                 $uid = user('id');
                 data_save("user/$uid/info", json_encode($user));
+                import('model/status.php');
+                post_status(LANG('Verified identity'));
             } else {
                 $message = LANG('Verification key is invalid or out of date');
             }

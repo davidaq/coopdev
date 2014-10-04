@@ -5,4 +5,8 @@
     .wiki-content {
         @include page-block;
     }
+    .editor {
+        width: 100%;
+        min-height: 200px;
+    }
 }

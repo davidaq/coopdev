@@ -19,6 +19,23 @@
         <div class="col-sm-8 col-md-9">
             <div class="wiki-content">
             <%if($isedit) {%>
+                <link rel="stylesheet" href="<%=BASE%>dep/kindeditor/themes/default/default.css"/>
+                <script type="text/javascript" charset="utf-8" src="<%=BASE%>dep/kindeditor/kindeditor-min.js"></script>
+                <script type="text/javascript" charset="utf-8" src="<%=BASE%>dep/kindeditor/lang/zh_CN.js"></script>
+                <script type="text/javascript" charset="utf-8" src="<%=BASE%>res/js/wikiedit.js"></script>
+                <textarea name="content" class="editor"></textarea>
+            </div>
+            <div class="wiki-content">
+                <form>
+                    <h4>
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                        {{Attachment}}
+                        <label class="btn btn-default btn-sm pull-right">
+                            <span class="glyphicon glyphicon-plus" for="uploader"></span>
+                            <input type="file" id="uploader" name="uploader" style="display: none" onchange="upload(this)" multiple/>
+                        </label>
+                    </h4>
+                </form>
             <%} else { %>
                 <%if(isset($content{0})) { %>
                 <%=$content%>

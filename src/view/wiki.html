@@ -1,0 +1,37 @@
+<%=tpl('header', array('title'=>$title))%>
+<div class="wiki">
+    <div class="breadcrumb">
+        <a href="<%=BASE%>wiki">{{Wiki}}</a>
+        <%$fp = '';foreach($path as $p) {$fp.='/' . urlencode($p)%>
+        / <a href="<%=BASE%>wiki?p=<%=$fp%>"><%=$p%></a>
+        <%}%>
+        <a href="<%=BASE%>wiki?edit&p=<%=$query%>" class="btn btn-xs btn-primary visible-verified-user pull-right">
+            <span class="glyphicon glyphicon-edit"></span>
+            {{Edit}}
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-sm-4 col-md-3">
+            <div class="index-table">
+                <h4>{{Table of contents}}</h4>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-9">
+            <div class="wiki-content">
+            <%if($isedit) {%>
+            <%} else { %>
+                <%if(isset($content{0})) { %>
+                <%=$content%>
+                <%} else { %>
+                <h3><span class="glyphicon glyphicon-paperclip"></span> {{This page does not exist}}</h3>
+                <a href="<%=BASE%>wiki?edit&p=<%=$query%>" class="btn btn-primary visible-verified-user">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    {{Create}}
+                </a>
+                <%}%>
+            <%}%>
+            </div>
+        </div>
+    </div>
+</div>
+<%=tpl('footer')%>

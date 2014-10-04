@@ -16,6 +16,9 @@ $brand-danger:  #d9534f;
     border-bottom: 1px solid #ddd;
     overflow: hidden;
     zoom: 1;
+    @media(max-width:500px) {
+        zoom: 0.9;
+    }
   }
 }
 
@@ -36,6 +39,7 @@ body {
   @import 'infopage';
   @import 'login';
   @import 'events';
+  @import 'wiki';
   .main-body {
     min-height: 80%;
   }

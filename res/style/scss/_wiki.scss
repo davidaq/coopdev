@@ -1,0 +1,8 @@
+.wiki {
+    .index-table {
+        @include page-block;
+    }
+    .wiki-content {
+        @include page-block;
+    }
+}

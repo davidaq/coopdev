@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-    <title>{{Site Title}}</title>
+    <title>
+        <%if(isset($title)) {%>
+        <%=$title%> -
+        <%}%>
+        {{Site Title}}
+    </title>
 
     <!-- dependencies -->
     <link rel="stylesheet" href="<%=BASE%>dep/css/bootstrap.min.css"/>

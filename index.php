@@ -30,9 +30,21 @@ function mstime() {
 function data_exists($file) {
     return file_exists("data/$file.php");
 }
+function delTree($dir) { 
+    $files = array_diff(scandir($dir), array('.','..')); 
+    foreach ($files as $file) { 
+        if(is_dir("$dir/$file")) 
+            delTree("$dir/$file");
+        else
+            unlink("$dir/$file"); 
+    } 
+    return rmdir($dir); 
+}
 function data_remove($file) {
     if(file_exists("data/$file.php")) {
         unlink("data/$file.php");
+    } elseif(is_dir("data/$file")) {
+        delTree("data/$file");
     }
 }
 function data_read($file) {

@@ -5,10 +5,22 @@
         <%$fp = '';foreach($path as $p) {$fp.='/' . urlencode($p)%>
         / <a href="<%=BASE%>wiki?p=<%=$fp%>"><%=$p%></a>
         <%}%>
+        <%if($isedit) {%>
+        <a href="javascript:void();" onclick="save(this)" class="btn btn-xs btn-primary visible-verified-user pull-right">
+            <span class="glyphicon glyphicon-save"></span>
+            {{Save}}
+        </a>
+        <span class="pull-right">&nbsp;&nbsp;</span>
+        <a href="javascript:void();" onclick="rmwiki(this)" class="btn btn-xs btn-danger visible-verified-user pull-right">
+            <span class="glyphicon glyphicon-trash"></span>
+            {{Delete}}
+        </a>
+        <%} else {%>
         <a href="<%=BASE%>wiki?edit&p=<%=$query%>" class="btn btn-xs btn-primary visible-verified-user pull-right">
             <span class="glyphicon glyphicon-edit"></span>
             {{Edit}}
         </a>
+        <%}%>
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-3">
@@ -22,8 +34,12 @@
                 <link rel="stylesheet" href="<%=BASE%>dep/kindeditor/themes/default/default.css"/>
                 <script type="text/javascript" charset="utf-8" src="<%=BASE%>dep/kindeditor/kindeditor-min.js"></script>
                 <script type="text/javascript" charset="utf-8" src="<%=BASE%>dep/kindeditor/lang/zh_CN.js"></script>
+                <script type="text/javascript" charset="utf-8">
+                    var wikiquery = <%=json_encode($query)%>;
+                    var attachments = <%=json_encode($attachments)%>;
+                </script>
                 <script type="text/javascript" charset="utf-8" src="<%=BASE%>res/js/wikiedit.js"></script>
-                <textarea name="content" class="editor"></textarea>
+                <textarea name="content" class="editor"><%=$content%></textarea>
             </div>
             <div class="wiki-content">
                 <form>
@@ -32,10 +48,40 @@
                         {{Attachment}}
                         <label class="btn btn-default btn-sm pull-right">
                             <span class="glyphicon glyphicon-plus" for="uploader"></span>
-                            <input type="file" id="uploader" name="uploader" style="display: none" onchange="upload(this)" multiple/>
+                            <input type="file" id="uploader" name="uploader"
+                                class="phantom" onchange="upload(this)" multiple="multiple"
+                                accept="image/*,application/zip,application/rar"/>
                         </label>
                     </h4>
                 </form>
+                <div class="hidden delete-prompt">{{Do you really want to delete % ?}}</div>
+                <script type="text/template" id="attachmentItemTpl">
+                    <div class="item" id="[[=id]]">
+                        <div class="thumb"></div>
+                        <div class="main">
+                            <div class="name">
+                                <a href="?p=<%=$query%>&x=/[[=id]]" target="_blank">[[=name]]</a>
+                                <small>[[=size]]</small>
+                            </div>
+                            <div class="extra">
+                                <div class="unsupported">
+                                    {{File type not allowed}}
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped active" style="width:0%">
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <a href="javascript:void(0)" onclick="addAtt2Doc(this)">{{Add to document}}</a>
+                                    |
+                                    <a href="javascript:void(0)" onclick="rmAtt(this)">{{Delete}}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </script>
+                <div class="attachments">
+                </div>
             <%} else { %>
                 <%if(isset($content{0})) { %>
                 <%=$content%>

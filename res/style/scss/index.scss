@@ -28,6 +28,13 @@ $brand-danger:  #d9534f;
   font-family: 华文黑体, 黑体, arial;
   outline: none;
 }
+.phantom {
+    position: fixed;
+    left: -100px;
+    top: -100px;
+    width: 1px;
+    height: 1px;
+}
 html {
   height: 100%;
 }

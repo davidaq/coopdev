@@ -1,6 +1,17 @@
 .wiki {
     .index-table {
         @include page-block;
+        ul, li {
+            display: block;
+            list-style: none;
+        }
+        ul {
+            padding-left: 10px;
+        }
+        li.active > a{
+            color: #555;
+            font-weight: bold;
+        }
     }
     .wiki-content {
         @include page-block;

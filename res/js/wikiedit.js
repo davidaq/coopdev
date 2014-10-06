@@ -2,6 +2,7 @@ var upload;
 var save;
 var addAtt2Doc;
 var rmAtt;
+var rmWiki;
 $(function() {
     var editor = KindEditor.create('textarea.editor', {
         allowFileUpload: false,
@@ -160,4 +161,11 @@ $(function() {
             });
         }
     }
+    rmWiki = function() {
+        var lang = $('.delete-prompt').html();
+        lang = lang.replace('%', wikiquery);
+        if(confirm(lang)) {
+            document.location.href = '?delete&p=' + encodeURIComponent(wikiquery);
+        }
+    };
 });

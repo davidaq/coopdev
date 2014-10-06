@@ -40,6 +40,14 @@ function delTree($dir) {
     } 
     return rmdir($dir); 
 }
+function delEmptyTree($dir) {
+    $files = array_diff(scandir($dir), array('.','..')); 
+    foreach ($files as $file) { 
+        if(is_dir("$dir/$file")) 
+            delEmptyTree("$dir/$file");
+    } 
+    return @rmdir($dir); 
+}
 function data_remove($file) {
     if(file_exists("data/$file.php")) {
         unlink("data/$file.php");
@@ -61,9 +69,30 @@ function data_save($file, $c) {
     if(isset($dir[1])) {
         unset($dir[count($dir) - 1]);
         $dir = implode('/', $dir);
-        @mkdir("data/$dir", '2777', true);
+        $oldmask = umask(0);
+        @mkdir("data/$dir", 0777, true);
+        umask($oldmask);
     }
     file_put_contents("data/$file.php", $c);
+}
+function data_list($dir, $prefix='') {
+    if(file_exists("data/$dir")) {
+        if($dir{strlen($dir) - 1} != '/')
+            $dir .= '/';
+        $list = scandir("data/$dir");
+        $len = strlen($prefix);
+        sort($list);
+        $ret = array();
+        foreach($list as $k=>$v) {
+            if($v{0} === '.' || ($len > 0 && substr($v, 0, $len) !== $prefix)) {
+                unset($list[$k]);
+            } else {
+                $ret["$dir$v"] = substr($v, $len);
+            }
+        }
+        return $ret;
+    }
+    return array();
 }
 function sync_begin() {
     global $_LOCK_FP;

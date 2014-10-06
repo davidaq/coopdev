@@ -1,6 +1,6 @@
 <?php
 $path = isset($_GET['p']) ? $_GET['p'] : '';
-$path = trim($path);
+$path = preg_replace('/^(\/|\s)+|(\/|\s)+$/', '', $path);
 while(isset($path{0}) && $path{0} == '/') {
     $path = substr($path, 1);
 }
@@ -12,9 +12,11 @@ if(isset($path{0})) {
         $p = 'wiki_' . $p;
     }
     $query = implode('/', $qpath);
+    $pquery = implode('/', $path);
 } else {
     $path = array('');
     $query = '';
+    $pquery = '';
 }
 
 /*****************
@@ -38,6 +40,8 @@ if(isset($_GET['delete']) && user('verified')) {
             }
         }
     }
+    delEmptyTree("data/wiki/$query");
+    redirect('/wiki?p=' . urlencode($pquery));
     die();
 }
 /********************
@@ -108,11 +112,52 @@ $title = $path[count($path) - 1];
 if(!isset($title{0})) {
     $title = LANG('Wiki');
 }
+$childs = data_list("wiki/$query", 'wiki_');
+foreach($childs as $k=>&$v) {
+    $v = array(
+        'path' => substr(str_replace('/wiki_', '/', $k), 5),
+        'name' => $v,
+        'child' => array(),
+        'active' => false
+    );
+}
+if(isset($qpath)) {
+    if(isset($qpath[1])) {
+        unset($qpath[count($qpath) - 1]);
+        $parent = implode('/', $qpath);
+    } else {
+        $parent = '';
+    }
+    $index = data_list("wiki/$parent", 'wiki_');
+    foreach($index as $k=>&$v) {
+        $v = array(
+            'path' => substr(str_replace('/wiki_', '/', $k), 5),
+            'name' => $v,
+            'child' => array(),
+            'active' => false
+        );
+        if($v['path'] == $pquery) {
+            $v['child'] = $childs;
+            $v['active'] = true;
+        }
+    }
+    if(isset($parent{0})) {
+        $name = substr($qpath[count($qpath) - 1], 5);
+        $index = array(array(
+            'path' => substr(str_replace('/wiki_', '/', $parent), 5),
+            'name' => $name,
+            'child' => $index,
+            'active' => false
+        ));
+    }
+} else {
+    $index = $childs;
+}
 $data = array(
-    'query' => implode('/', $path),
+    'query' => $pquery,
     'title' => $title,
     'path' => $path,
-    'index' => array(),
+    'index' => $index,
     'content' => data_read("wiki/$query/content"),
     'isedit' => isset($_GET['edit']),
     'attachments' => json_decode(data_read("wiki/$query/attachments"), true)

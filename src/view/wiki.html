@@ -11,7 +11,7 @@
             {{Save}}
         </a>
         <span class="pull-right">&nbsp;&nbsp;</span>
-        <a href="javascript:void();" onclick="rmwiki(this)" class="btn btn-xs btn-danger visible-verified-user pull-right">
+        <a href="javascript:void();" onclick="rmWiki(this)" class="btn btn-xs btn-danger visible-verified-user pull-right">
             <span class="glyphicon glyphicon-trash"></span>
             {{Delete}}
         </a>
@@ -20,12 +20,35 @@
             <span class="glyphicon glyphicon-edit"></span>
             {{Edit}}
         </a>
+        <span class="pull-right">&nbsp;&nbsp;</span>
+        <a href="javascript:createWiki();" class="btn btn-xs btn-default visible-verified-user pull-right">
+            <span class="glyphicon glyphicon-plus"></span>
+            {{Create}}
+        </a>
+        <script type="text/javascript">
+            function createWiki() {
+                var wikiName = prompt('{{Create Wiki}}', <%=json_encode($query)%> + '/');
+                if(wikiName) {
+                    document.location.href = '?edit&p=' + encodeURIComponent(wikiName);
+                }
+            }
+        </script>
         <%}%>
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-3">
             <div class="index-table">
                 <h4>{{Table of contents}}</h4>
+                <%function showTree($tree) { %>
+                    <ul>
+                    <%foreach($tree as $v) { %>
+                        <li <%if($v['active']){%>class="active"<%}%>>
+                            <a href="?p=<%=urlencode($v['path'])%>"><%=$v['name']%></a>
+                            <%showTree($v['child'])%>
+                        </li>
+                    <%}%>
+                    </ul>
+                <%} showTree($index);%>
             </div>
         </div>
         <div class="col-sm-8 col-md-9">

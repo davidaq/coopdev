@@ -16,8 +16,9 @@
     .wiki-content {
         @include page-block;
         font-family: arial;
+        padding: 10px;
         ul, ol {
-          margin-left: 50px;
+          margin-left: 30px;
         }
     }
     .editor {

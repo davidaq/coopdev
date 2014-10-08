@@ -15,6 +15,10 @@
     }
     .wiki-content {
         @include page-block;
+        font-family: arial;
+        ul, ol {
+          margin-left: 50px;
+        }
     }
     .editor {
         width: 100%;

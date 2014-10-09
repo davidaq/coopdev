@@ -23,11 +23,12 @@
           margin-left: 40px;
         }
         img {
+          margin: 5px;
           @media (max-width: 500px) {
             display: block !important;
             max-width: 95% !important;
             height: auto !important;
-            margin: 0 auto !important;
+            margin: 5px auto !important;
           }
           box-shadow: 0 2px 5px #777;
         }

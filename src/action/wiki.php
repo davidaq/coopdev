@@ -156,6 +156,8 @@ if(isset($qpath)) {
 $content = data_read("wiki/$query/content");
 if(!user('verified'))
     $content = preg_replace('/\{\{\{.*?\}\}\}/s', '<span class="verified-only">' . LANG('Visible to verified user only') . '</span>', $content);
+elseif(!isset($_GET['edit']))
+    $content = preg_replace('/\{\{\{(.*?)\}\}\}/s', '$1', $content);
 $data = array(
     'query' => $pquery,
     'title' => $title,

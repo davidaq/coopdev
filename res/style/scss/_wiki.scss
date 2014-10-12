@@ -32,6 +32,14 @@
           }
           box-shadow: 0 2px 5px #777;
         }
+        .verified-only {
+            background: #f0f5f0;
+            display: inline-block;
+            padding: 2px 7px;
+            border: 1px dotted #ccc;
+            color: #777;
+            font-size: 11px;
+        }
     }
     .editor {
         width: 100%;

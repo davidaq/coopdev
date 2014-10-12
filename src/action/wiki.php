@@ -153,12 +153,17 @@ if(isset($qpath)) {
 } else {
     $index = $childs;
 }
+$content = data_read("wiki/$query/content");
+if(!user('verified'))
+    $content = preg_replace('/\{\{\{.*?\}\}\}/s', '<span class="verified-only">' . LANG('Visible to verified user only') . '</span>', $content);
+elseif(!isset($_GET['edit']))
+    $content = preg_replace('/\{\{\{(.*?)\}\}\}/s', '$1', $content);
 $data = array(
     'query' => $pquery,
     'title' => $title,
     'path' => $path,
     'index' => $index,
-    'content' => data_read("wiki/$query/content"),
+    'content' => $content,
     'isedit' => isset($_GET['edit']),
     'attachments' => json_decode(data_read("wiki/$query/attachments"), true)
 );

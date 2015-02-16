@@ -139,6 +139,7 @@ $(function() {
         $(element).addClass('disabled');
         $.post('?save&p=' + wikiquery, {content:editor.html()}, function() {
             $(element).removeClass('disabled');
+            alert('保存成功');
         });
     };
     addAtt2Doc = function(element) {

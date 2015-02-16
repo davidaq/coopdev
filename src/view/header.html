@@ -46,45 +46,45 @@
   <body>
     <div class="header headroom">
       <div class="container">
-          <div class="dropdown visible-xs-inline">
-              <a id="head-nav-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="logo">
-                  {{Site Title}}
-                  <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu head-nav-menu" role="menu" aria-labelledby="head-nav-menu-btn">
-                  <li><a href="<%=BASE%>">{{Events}} <em>{{What's going on}}</em></a></li>
-                  <li><a href="tasks">{{Tasks}} <em>{{What needs to be done}}</em></a></li>
-                  <li><a href="wiki">{{Wiki}} <em>{{What we know}}</em></a></li>
-                  <li><a href="team">{{Team}} <em>{{Who we are}}</em></a></li>
-                  <li><a href="dev">{{Dev-Tool}} <em>{{Git, Cron, Monitor}}</em></a></li>
-              </ul>
+        <div class="dropdown visible-xs-inline">
+          <a id="head-nav-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="logo">
+            {{Site Title}}
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu head-nav-menu" role="menu" aria-labelledby="head-nav-menu-btn">
+            <li><a href="<%=BASE%>">{{Events}} <em>{{What's going on}}</em></a></li>
+            <li><a href="tasks">{{Tasks}} <em>{{What needs to be done}}</em></a></li>
+            <li><a href="wiki">{{Wiki}} <em>{{What we know}}</em></a></li>
+            <li><a href="team">{{Team}} <em>{{Who we are}}</em></a></li>
+            <li><a href="dev">{{Dev-Tool}} <em>{{Git, Cron, Monitor}}</em></a></li>
+          </ul>
+        </div>
+        <a href="javascript:showmenu()" class="logo hidden-xs">{{Site Title}}</a>
+        <span class="hidden-xs">
+          <a href="<%=BASE%>" class="nav-link" ref="" title="{{What's going on}}">{{Events}}</a>
+          <a href="tasks" class="nav-link" ref="" title="{{What needs to be done}}">{{Tasks}}</a>
+          <a href="wiki" class="nav-link" ref="" title="{{What we know}}">{{Wiki}}</a>
+          <a href="team" class="nav-link" ref="" title="{{Who we are}}">{{Team}}</a>
+          <a href="dev" class="nav-link" ref="" title="{{Git, Cron, Monitor}}">{{Dev-Tool}}</a>
+        </span>
+        <div class="account dropdown">
+          <%if(user()) {%>
+          <div class="userinfo" id="account-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img class="avatar" src="<%=user('avatar')%>"/>
+            <span class="username">
+              <%=user('name')%><br/>
+              <small><%=user('title')%></small>
+            </span>
           </div>
-          <a href="javascript:showmenu()" class="logo hidden-xs">{{Site Title}}</a>
-          <span class="hidden-xs">
-            <a href="<%=BASE%>" class="nav-link" ref="" title="{{What's going on}}">{{Events}}</a>
-            <a href="tasks" class="nav-link" ref="" title="{{What needs to be done}}">{{Tasks}}</a>
-            <a href="wiki" class="nav-link" ref="" title="{{What we know}}">{{Wiki}}</a>
-            <a href="team" class="nav-link" ref="" title="{{Who we are}}">{{Team}}</a>
-            <a href="dev" class="nav-link" ref="" title="{{Git, Cron, Monitor}}">{{Dev-Tool}}</a>
-          </span>
-          <div class="account dropdown">
-            <%if(user()) {%>
-            <div class="userinfo" id="account-menu-btn" href="javascript:;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <img class="avatar" src="<%=user('avatar')%>"/>
-              <span class="username">
-                <%=user('name')%><br/>
-                <small><%=user('title')%></small>
-              </span>
-            </div>
-            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="account-nav-menu-btn">
-              <li><a href="settings"><span class="glyphicon glyphicon-wrench"></span> {{Settings}}</a></li>
-              <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> {{Logout}}</a></li>
-            </ul>
-            <%}else{%>
-              <a href="javascript:document.location.href='login#' + document.location.href" class="btn btn-primary">{{Login}}</a>
-              <a href="register" class="btn btn-default">{{Register}}</a>
-            <%}%>
-          </div>
+          <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="account-nav-menu-btn">
+            <li><a href="settings"><span class="glyphicon glyphicon-wrench"></span> {{Settings}}</a></li>
+            <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> {{Logout}}</a></li>
+          </ul>
+          <%}else{%>
+            <a href="javascript:document.location.href='login#' + document.location.href" class="btn btn-primary">{{Login}}</a>
+            <a href="register" class="btn btn-default">{{Register}}</a>
+          <%}%>
+        </div>
       </div>
     </div>
     <div class="header-pad"></div>

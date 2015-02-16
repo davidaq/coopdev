@@ -85,7 +85,7 @@
               <li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> {{Logout}}</a></li>
             </ul>
             <%}else{%>
-              <a href="login" class="btn btn-primary">{{Login}}</a>
+              <a href="javascript:document.location.href='login#' + document.location.href" class="btn btn-primary">{{Login}}</a>
               <a href="register" class="btn btn-default">{{Register}}</a>
             <%}%>
           </div>

@@ -29,14 +29,16 @@ function remove_status($id, $checkuser=false) {
     }
     sync_end();
 }
-function post_status($content, $type='did') {
+function post_status($content, $type='did', $escape=true) {
     if(!user())
         return;
+    if($escape)
+        $content = iescape($content, true);
     $data = array(
         'user' => user('id'),
         'date' => time(),
         'type' => $type,
-        'content' => iescape($content, true),
+        'content' => $content
     );
     $data = json_encode($data);
     sync_begin();

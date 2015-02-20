@@ -37,6 +37,21 @@
     </div>
     <div class="row">
         <div class="col-sm-4 col-md-3">
+            <%if(!$isedit) {%>
+            <div class="index-table">
+                {{Short url}}:
+                <input type="text" id="shorturl" style="width:100%;display:block;padding:0;margin:0" onmouseup="this.focus();this.select()"/>
+            </div>
+            <script type="text/javascript">
+                (function() {
+                 var url = 'http://api.weibo.com/2/short_url/shorten.json?source=211160679&callback=?';//&url_long=http://www.cnblogs.com'l
+                 $.getJSON(url, {url_long:document.location.href}, function(result) {
+                     result = result.data.urls[0];
+                     $('#shorturl').val(result.url_short);
+                 });
+                })();
+            </script>
+            <%}%>
             <div class="index-table">
                 <h4>{{Table of contents}}</h4>
                 <%function showTree($tree) { %>

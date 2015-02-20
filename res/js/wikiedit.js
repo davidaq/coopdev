@@ -137,7 +137,8 @@ $(function() {
     };
     save = function(element) {
         $(element).addClass('disabled');
-        $.post('?save&p=' + wikiquery, {content:editor.html()}, function() {
+        $.post('?save&p=' + wikiquery, {content:editor.html()}, function(r) {
+            console.log(r);
             $(element).removeClass('disabled');
             alert('保存成功');
         });

@@ -1,4 +1,5 @@
 <?php
+import('model/status.php');
 $path = isset($_GET['p']) ? $_GET['p'] : '';
 $path = preg_replace('/^(\/|\s)+|(\/|\s)+$/', '', $path);
 while(isset($path{0}) && $path{0} == '/') {
@@ -24,6 +25,9 @@ if(isset($path{0})) {
  *****************/
 if(isset($_GET['save']) && user('verified')) {
     data_save("wiki/$query/content", $_POST['content']);
+    $stat = LANG('updated wiki page') . ' : ';
+    $stat .= '<a href="' . BASE . '/wiki?p=' . urlencode($pquery) . '">' . $pquery . '</a>';
+    post_status($stat, 'did', false);
     die();
 }
 /*******************

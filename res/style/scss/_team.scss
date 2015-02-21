@@ -1,14 +1,18 @@
 .team {
     .item {
         @include page-block;
+        overflow: hidden;
+        zoom: 1;
         .avatar {
             float: left;
-            width: 22%;
+            width: 25%;
             height: 0;
-            padding-bottom: 22%;
+            padding-bottom: 25%;
             background: url() no-repeat center center;
             background-size: cover;
             margin-right: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 3px #777;
         }
         b, i, small {
             display: block;

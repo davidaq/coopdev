@@ -1,12 +1,14 @@
 <%=tpl('header', array('title'=>LANG('Team')))%>
 <div class="row team">
     <%foreach($list as $item) {%>
-        <div class="col-xs-6 col-sm-4 col-md-3 item">
-            <div class="avatar" style="background-image:url(<%=$item['avatar']%>)"></div>
-            <b><%=$item['name']%></b>
-            <%if($item['verified']) {%>
-            <small><%=$item['title']%></small>
-            <%}%>
+        <div class="col-xs-6 col-sm-4 col-md-3">
+            <div class="item">
+                <div class="avatar" style="background-image:url(<%=$item['avatar']%>)"></div>
+                <b><%=$item['name']%></b>
+                <%if($item['verified']) {%>
+                <small><%=$item['title']%></small>
+                <%}%>
+            </div>
         </div>
     <%}%>
 </div>

@@ -1,0 +1,22 @@
+.team {
+    .item {
+        @include page-block;
+        .avatar {
+            float: left;
+            width: 22%;
+            height: 0;
+            padding-bottom: 22%;
+            background: url() no-repeat center center;
+            background-size: cover;
+            margin-right: 10px;
+        }
+        b, i, small {
+            display: block;
+            color: #aaa;
+        }
+        b {
+            font-size: 19px;
+            color: #333;
+        }
+    }
+}

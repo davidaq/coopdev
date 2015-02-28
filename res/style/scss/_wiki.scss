@@ -7,6 +7,14 @@
         padding-left: 7px;
         padding-right: 7px;
     }
+    .breadcrumb {
+        @media (max-width:768px) {
+            padding-left: 3px;
+            padding-right: 3px;
+            margin-left: 3px;
+            margin-right: 3px;
+        }
+    }
     .index-table {
         @include page-block;
         ul, li {

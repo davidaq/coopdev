@@ -42,8 +42,6 @@ $(function() {
                 }, 500);
             }, false);
         };
-        setInterval(function() {
-        }, 1000);
 
         return {
             push: function(item) {

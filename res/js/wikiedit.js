@@ -128,6 +128,7 @@ $(function() {
                 $('.progress', attItem).hide();
                 $('.thumb', attItem).append('<span class="glyphicon glyphicon-ban-circle"></span>');
             } else if(item.type == 'zip') {
+                uploadQueue.push(item);
                 $('.thumb', attItem).append('<span class="glyphicon glyphicon-compressed"></span>');
             }
             $('.attachments').append(attItem);

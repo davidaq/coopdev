@@ -59,6 +59,7 @@ $(function() {
         }
         return 'unsupported';
     }
+    var attItems = [];
     for(var k in attachments) {
         try {
             var name = attachments[k].name;
@@ -82,9 +83,14 @@ $(function() {
                 $('.thumb', attItem).append('<span class="glyphicon glyphicon-compressed"></span>');
                 $('.control', attItem).show();
             }
-            $('.attachments').append(attItem);
+            attItems.push({k:k.split('_').pop() * 1, e:attItem});
         } catch(EX){}
     }
+    attItems.sort(function(a, b) {
+        return a.k - b.k;
+    });
+    for(var k in attItems)
+        $('.attachments').append(attItems[k].e);
     upload = function(element) {
         if(!element.files) {
             alert('您的浏览器版本太低，无法完成异步文件上传');

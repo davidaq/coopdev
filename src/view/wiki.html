@@ -97,7 +97,7 @@
                 </form>
                 <div class="hidden delete-prompt">{{Do you really want to delete % ?}}</div>
                 <script type="text/template" id="attachmentItemTpl">
-                    <div class="item" id="[[=id]]">
+                    <div class="item upload-item" id="[[=id]]">
                         <div class="thumb"></div>
                         <div class="main">
                             <div class="name">
@@ -114,8 +114,26 @@
                                 </div>
                                 <div class="control">
                                     <a href="javascript:void(0)" onclick="addAtt2Doc(this)">{{Add to document}}</a>
-                                    |
+                                    ·
                                     <a href="javascript:void(0)" onclick="rmAtt(this)">{{Delete}}</a>
+                                    ·
+                                    <style type="text/css">
+                                      .alink {
+                                        cursor: pointer;
+                                      }
+                                      .alink:hover {
+                                        text-decoration: underline;
+                                      }
+                                    </style>
+                                    <label class="alink">
+                                      {{Update}}
+                                      <input type="file" class="phantom" onchange="upload(this)"
+                                      [[if(type == 'image') {]]
+                                          accept="image/*"/>
+                                      [[} else {]]
+                                          accept="application/zip,application/rar"/>
+                                      [[}]]
+                                    </label>
                                 </div>
                             </div>
                         </div>

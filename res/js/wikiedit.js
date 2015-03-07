@@ -2,6 +2,7 @@ var upload;
 var save;
 var addAtt2Doc;
 var rmAtt;
+var updateAtt;
 var rmWiki;
 $(function() {
     var editor = KindEditor.create('textarea.editor', {
@@ -96,12 +97,23 @@ $(function() {
             alert('您的浏览器版本太低，无法完成异步文件上传');
             return;
         }
+        var existing = $(element).closest('.upload-item');
+        if(existing[0]) {
+        } else {
+            existing = false;
+        }
         for(var k in element.files) {
             var f = element.files[k];
             if(!f.name || !f.size)
                 continue;
+            var attId;
+            if(existing) {
+                attId = existing.attr('id');
+            } else {
+                attId = 'attach_' + new Date().getTime() + '_' + Math.ceil(Math.random() * 9999) + '_' + k;
+            }
             var item = {
-                id: 'attach_' + new Date().getTime() + '_' + Math.ceil(Math.random() * 9999) + '_' + k,
+                id: attId,
                 file: f,
                 name: f.name,
                 size: function(sz) {
@@ -116,28 +128,50 @@ $(function() {
                 }(f.size),
                 type: filetype(f.name)
             };
-            var attItem = $(attachmentTpl(item));
-            if(item.type == 'image') {
+            if(existing) {
+                if(item.type == 'image') {
+                    var reader = new FileReader();
+                    reader.onload = function(attItem) {
+                        return function(e) {
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            $('.thumb', existing).html(img);
+                        };
+                    }(attItem);
+                    reader.readAsDataURL(f);
+                } else if(item.type == 'unsupported') {
+                    alert('不支持的附件类型');
+                    return;
+                }
+                existing.find('.name a').html(item.name);
+                existing.find('.name small').html(item.size);
+                existing.find('.control').hide();
+                existing.find('.progress').show();
                 uploadQueue.push(item);
-                var reader = new FileReader();
-                reader.onload = function(attItem) {
-                    return function(e) {
-                        var img = document.createElement('img');
-                        img.src = e.target.result;
-                        $('.thumb', attItem).append(img);
-                    };
-                }(attItem);
-                reader.readAsDataURL(f);
-            } else if(item.type == 'unsupported') {
-                uploadQueue.push(item);
-                $('.unsupported', attItem).show();
-                $('.progress', attItem).hide();
-                $('.thumb', attItem).append('<span class="glyphicon glyphicon-ban-circle"></span>');
-            } else if(item.type == 'zip') {
-                uploadQueue.push(item);
-                $('.thumb', attItem).append('<span class="glyphicon glyphicon-compressed"></span>');
+            } else {
+                var attItem = $(attachmentTpl(item));
+                if(item.type == 'image') {
+                    uploadQueue.push(item);
+                    var reader = new FileReader();
+                    reader.onload = function(attItem) {
+                        return function(e) {
+                            var img = document.createElement('img');
+                            img.src = e.target.result;
+                            $('.thumb', attItem).append(img);
+                        };
+                    }(attItem);
+                    reader.readAsDataURL(f);
+                } else if(item.type == 'unsupported') {
+                    uploadQueue.push(item);
+                    $('.unsupported', attItem).show();
+                    $('.progress', attItem).hide();
+                    $('.thumb', attItem).append('<span class="glyphicon glyphicon-ban-circle"></span>');
+                } else if(item.type == 'zip') {
+                    uploadQueue.push(item);
+                    $('.thumb', attItem).append('<span class="glyphicon glyphicon-compressed"></span>');
+                }
+                $('.attachments').append(attItem);
             }
-            $('.attachments').append(attItem);
         }
     };
     save = function(element) {
@@ -167,7 +201,7 @@ $(function() {
                 $(this).remove();
             });
         }
-    }
+    };
     rmWiki = function() {
         var lang = $('.delete-prompt').html();
         lang = lang.replace('%', wikiquery);

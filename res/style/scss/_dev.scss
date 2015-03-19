@@ -1,0 +1,34 @@
+.dev {
+  .chron {
+    @include page-block;
+    .item {
+      overflow: hidden;
+      word-break:break-all;
+      zoom: 1;
+      font-size: 12px;
+      b {
+        padding: 0 2px;
+        color: #580;
+        line-height: 30px;
+        font-size: 11px;
+      }
+      a {
+        display: none;
+        height: 25px;
+        line-height: 22px;
+        margin: 0;
+      }
+      &:hover a {
+        display: block;
+      }
+      span {
+        height: 28px;
+        line-height: 28px;
+        font-size: 11px;
+      }
+      &:hover span {
+        display: none;
+      }
+    }
+  }
+}

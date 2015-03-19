@@ -1,4 +1,40 @@
 <%=tpl('header', array('title'=>LANG('Dev-Tool')))%>
-<div class="row">
+<%
+function stime($t) {
+  return date('m/d H:i:s', $t);
+}
+%>
+<div class="dev">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="chron">
+        <h4>
+          <i class="glyphicon glyphicon-time"></i>
+          定时任务
+        </h4>
+        <%foreach($chron as $k=>$item) {%>
+          <div class="item">
+            每<b><%=$item['interval']%></b>
+            秒访问<b><%=$item['url']%></b>
+            <span class="pull-right">
+              <%=stime($item['last'])%>
+            </span>
+            <a class="btn btn-default btn-xs pull-right" href="<%=BASE%>dev?delete=<%=$k%>">删除</a>
+          </div>
+        <%}%>
+        <form style="overflow:hidden; zoom:1" class="form" method="post">
+          <div class="input-group">
+            <span class="input-group-addon">每</span>
+            <input type="text" name="interval" class="form-control" placeholder="1" style="text-align:center" size="3"/>
+            <span class="input-group-addon">x10秒访问</span>
+            <input type="text" name="url" class="form-control" placeholder="http://"/>
+            <span class="input-group-btn">
+              <input type="submit" class="btn btn-default" value="添加"/>
+            </span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <%=tpl('footer')%>

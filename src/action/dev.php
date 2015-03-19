@@ -1,7 +1,7 @@
 <?php
 $add = isset($_POST['url']) && trim($_POST['url']);
 $delete = isset($_GET['delete']);
-$edit = user('verified') && ($add || $delete);
+$edit = isset($_GET['chron']) || (user('verified') && ($add || $delete));
 if($edit) sync_begin();
 $data = json_decode(data_read('chron'), true);
 if(!$data || !is_array($data)) 
@@ -9,11 +9,14 @@ if(!$data || !is_array($data))
 if(isset($_GET['chron'])) {
     $t = time();
     header('Content-type:text/plain; charset=utf-8');
-    foreach($data as $item) {
+    foreach($data as &$item) {
         if($item['last'] * 1 + $item['interval'] * 1 < $t) {
             echo $item['url'] . "\n";
+            $item['last'] = $t;
         }
     }
+    data_save('chron', json_encode($data));
+    sync_end();
     die();
 }
 if($edit) {

@@ -1,7 +1,7 @@
 <?php
 $add = isset($_POST['url']) && trim($_POST['url']);
 $delete = isset($_GET['delete']);
-$edit = $add || $delete;
+$edit = user('verified') && ($add || $delete);
 if($edit) sync_begin();
 $data = json_decode(data_read('chron'), true);
 if(!$data || !is_array($data)) 

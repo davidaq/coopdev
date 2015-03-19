@@ -22,6 +22,7 @@ function stime($t) {
             <a class="btn btn-default btn-xs pull-right" href="<%=BASE%>dev?delete=<%=$k%>">删除</a>
           </div>
         <%}%>
+        <%if(user('verified')) {%>
         <form style="overflow:hidden; zoom:1" class="form" method="post">
           <div class="input-group">
             <span class="input-group-addon">每</span>
@@ -33,6 +34,7 @@ function stime($t) {
             </span>
           </div>
         </form>
+        <%}%>
       </div>
     </div>
   </div>

@@ -26,7 +26,7 @@ if(isset($path{0})) {
 if(isset($_GET['save']) && user('verified')) {
     data_save("wiki/$query/content", $_POST['content']);
     $stat = LANG('updated wiki page') . ' : ';
-    $stat .= '<a href="' . BASE . '/wiki?p=' . urlencode($pquery) . '">' . $pquery . '</a>';
+    $stat .= '<a href="' . BASE . 'wiki?p=' . urlencode($pquery) . '">' . $pquery . '</a>';
     post_status($stat, 'did', false);
     die();
 }

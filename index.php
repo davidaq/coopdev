@@ -87,6 +87,8 @@ function data_list($dir, $prefix='') {
             if($v{0} === '.' || ($len > 0 && substr($v, 0, $len) !== $prefix)) {
                 unset($list[$k]);
             } else {
+                if(!is_dir("data/$dir/$v"))
+                    $v = preg_replace('/\.php$/', '', $v);
                 $ret["$dir$v"] = substr($v, $len);
             }
         }

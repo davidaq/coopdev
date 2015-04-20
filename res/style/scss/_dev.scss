@@ -6,6 +6,7 @@
       word-break:break-all;
       zoom: 1;
       font-size: 12px;
+      position: relative;
       b {
         padding: 0 2px;
         color: #580;
@@ -18,17 +19,20 @@
         line-height: 22px;
         margin: 0;
       }
-      &:hover a {
+      &:hover a.btn {
         display: block;
+        position: absolute;
+        right: 0;
+        top: 5px;
       }
       span {
         height: 28px;
         line-height: 28px;
         font-size: 11px;
       }
-      &:hover span {
-        display: none;
-      }
     }
+  }
+  .stat {
+    @include page-block;
   }
 }

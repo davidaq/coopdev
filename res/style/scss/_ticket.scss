@@ -1,0 +1,31 @@
+.tasks {
+  .create {
+    @include page-block;
+    textarea {
+      max-width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+  .create {
+    overflow: hidden;
+    zoom: 1;
+    .small {
+      color: #AAA;
+    }
+    label {
+      margin: 7px;
+    }
+  }
+  .filter {
+    @include page-block;
+    .col-sm-10 label {
+      font-weight: normal;
+      margin-right: 8px;
+    }
+  }
+  .list {
+    .item {
+      @include page-block;
+    }
+  }
+}

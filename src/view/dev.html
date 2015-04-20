@@ -6,7 +6,17 @@ function stime($t) {
 %>
 <div class="dev">
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-8">
+      <div class="stat">
+        <h4>
+          <i class="glyphicon glyphicon-tasks"></i>
+          状态监控
+        </h4>
+      </div>
+      <div class="stat">
+      </div>
+    </div>
+    <div class="col-sm-4">
       <div class="chron">
         <h4>
           <i class="glyphicon glyphicon-time"></i>
@@ -19,7 +29,9 @@ function stime($t) {
             <span class="pull-right">
               <%=stime($item['last'])%>
             </span>
-            <a class="btn btn-default btn-xs pull-right" href="<%=BASE%>dev?delete=<%=$k%>">删除</a>
+            <%if(user('verified')) {%>
+              <a class="btn btn-default btn-xs" href="<%=BASE%>dev?delete=<%=$k%>">删除</a>
+            <%}%>
           </div>
         <%}%>
         <%if(user('verified')) {%>

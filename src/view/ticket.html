@@ -1,0 +1,82 @@
+<%=tpl('header', array('title'=>LANG('Tasks')))%>
+<script type="text/javascript" src="res/js/ticket.js"></script>
+<div class="tasks">
+  <div class="row">
+    <div class="col-sm-4">
+      <form class="create" onsubmit="return postTicket(this);" method="post" action="ticket">
+        <div class="small">
+          请将问题叙述清楚：哪个产品，什么环境，什么问题，需要什么
+        </div>
+        <textarea class="form-control" name="ticket" placeholder="工单内容"></textarea>
+        <label>
+          <input type="radio" name="type" value="requirement"/>
+          建议
+        </label>
+        <label>
+          <input type="radio" name="type" value="bug"/>
+          Bug
+        </label>
+        <label style="color: #F00">
+          <input type="radio" name="type" value="defect"/>
+          故障
+        </label>
+        <input type="submit" class="btn btn-primary pull-right" value="发送工单"/>
+      </form>
+      <div class="filter">
+        <h4>
+          <i class="glyphicon glyphicon-filter"></i>
+          筛选
+        </h4>
+        <div class="row">
+          <div class="col-sm-2">
+            <label>
+              状态:
+            </label>
+          </div>
+          <div class="col-sm-10">
+            <label>
+              <input type="checkbox" name="status[]" value="pending"/>
+              等待中
+            </label>
+            <label>
+              <input type="checkbox" name="status[]" value="working"/>
+              处理中
+            </label>
+            <label>
+              <input type="checkbox" name="status[]" value="confirming"/>
+              待确认
+            </label>
+            <label>
+              <input type="checkbox" name="status[]" value="closed"/>
+              已关闭
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2">
+            <label>
+            标签:
+            </label>
+          </div>
+          <div class="col-sm-10">
+            <label>
+              <input type="checkbox"/>
+              iOS
+            </label>
+            <label>
+              <input type="checkbox"/>
+              安卓
+            </label>
+            <label>
+              <input type="checkbox"/>
+              渲染
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8 list">
+    </div>
+  </div>
+</div>
+<%=tpl('footer')%>

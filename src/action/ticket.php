@@ -46,23 +46,34 @@ if(isset($_GET['list'])) {
     if(!$max) {
         $max = 0x7ffffffffffff;
     }
-    $c = 10;
+    $c = 0;
     $ret = array();
     foreach($list as $k=>&$v) {
-        if($v * 1 > $max)
+        $v *= 1;
+        if($v >= $max)
             continue;
         $item = json_decode(data_read($k), true);
-        $item['content']= array($item['content'][0]);
+        $item['content']= $item['content'][0];
+        $item['id'] = $v;
         $ret[] = $item;
         $c++;
-        if($c > 20) {
+        if($c >= 10) {
             break;
         }
     }
     die(json_encode($ret));
+} elseif(isset($_GET['id'])) {
+    $tags = data_list('ticket/tag');
+    foreach($tags as &$v) {
+        $v = base64_decode($v);
+    }
+    $item = json_decode(data_read('ticket/t_' . $_GET['id']), true);
+    die(tpl('show-ticket', array('tags' => $tags, 'ticket'=> $item)));
+} else {
+    $tags = data_list('ticket/tag');
+    foreach($tags as &$v) {
+        $v = base64_decode($v);
+    }
+    die(tpl('ticket', array('tags' => $tags)));
 }
-$tags = data_list('ticket/tag');
-foreach($tags as &$v) {
-    $v = base64_decode($v);
-}
-die(tpl('ticket', array('tags' => $tags)));
+

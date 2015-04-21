@@ -1,13 +1,13 @@
 <%=tpl('header', array('title'=>LANG('Tasks')))%>
 <script type="text/javascript" src="res/js/ticket.js"></script>
-<div class="tasks">
+<div class="ticket">
   <div class="row">
     <div class="col-sm-4">
       <form class="create" onsubmit="return postTicket(this);" method="post" action="ticket">
         <div class="small">
           请将问题叙述清楚：哪个产品，什么环境，什么问题，需要什么
         </div>
-        <textarea class="form-control" name="ticket" placeholder="工单内容"></textarea>
+        <textarea class="form-control" name="ticket" rows="4"></textarea>
         <label>
           <input type="radio" name="type" value="requirement"/>
           建议
@@ -76,6 +76,13 @@
       </div>
     </div>
     <div class="col-sm-8 list">
+      <div id="ticketlist">
+      </div>
+      <div class="loading">
+        <i class="glyphicon glyphicon-refresh"></i>
+      </div>
+      <script type="text/template" id="ticketItemTpl">
+      </script>
     </div>
   </div>
 </div>

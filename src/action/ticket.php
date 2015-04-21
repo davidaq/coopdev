@@ -51,7 +51,9 @@ if(isset($_GET['list'])) {
     foreach($list as $k=>&$v) {
         if($v * 1 > $max)
             continue;
-        $ret[] = json_decode(data_read($k), true);
+        $item = json_decode(data_read($k), true);
+        $item['content']= array($item['content'][0]);
+        $ret[] = $item;
         $c++;
         if($c > 20) {
             break;

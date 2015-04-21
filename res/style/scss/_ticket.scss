@@ -1,4 +1,4 @@
-.tasks {
+.ticket {
   .create {
     @include page-block;
     textarea {
@@ -26,6 +26,25 @@
   .list {
     .item {
       @include page-block;
+    }
+    .loading {
+      color: #777;
+      font-size: 40px;
+      text-align: center;
+      .glyphicon {
+        @-webkit-keyframes rotate {
+          0% {
+            -webkit-transform: rotate(0deg);
+          }
+          50% {
+            -webkit-transform: rotate(180deg);
+          }
+          100% {
+            -webkit-transform: rotate(360deg);
+          }
+        }
+        -webkit-animation: rotate 1s infinite linear;
+      }
     }
   }
 }

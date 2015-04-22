@@ -1,0 +1,87 @@
+<%=tpl('header', array('title'=>LANG('Tasks')))%>
+<%
+$stext = array(
+    'pending'    => '等待中',
+    'working'    => '处理中',
+    'confirming' => '待确认',
+    'closed'     => '已关闭',
+    'suggest'    => '建议',
+    'bug'        => 'Bug',
+    'defect'     => '故障'
+);
+$sstyle = array(
+    'pending'    => 'danger',
+    'working'    => 'info',
+    'confirming' => 'primary',
+    'closed'     => 'success',
+    'suggest'    => 'info',
+    'bug'        => 'warning',
+    'defect'     => 'danger'
+);
+%>
+<div class="ticket">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="info">
+        <h4>
+          <i class="glyphicon glyphicon-info-sign"></i>
+          工单详情
+        </h4>
+        <label>类型：<span class="btn-xs btn-<%=$sstyle[$ticket['type']]%>"><%=$stext[$ticket['type']]%></span></label>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <label>状态：<span class="btn-xs btn-<%=$sstyle[$ticket['status']]%>"><%=$stext[$ticket['status']]%></span></label>
+        <h4>
+          <i class="glyphicon glyphicon-tags"></i>
+          标签
+        </h4>
+        <%if(user('verified')) {%><textarea class="form-control"><%}
+          echo implode(' ', $ticket['tag']);
+          if(user('verified')) {%></textarea>
+        <button class="btn-xs btn-primary">修改</button>
+        <%}%>
+      </div>
+    </div>
+    <div class="col-sm-9 thread">
+      <%foreach($ticket['content'] as $c) {%>
+      <div class="item row <%=($ticket['user'] == $c['user']?'left':'right')%>">
+        <div class="col-xs-2 col-md-1">
+          <div class="user-sign pull-right"><%=$c['user']%></div>
+        </div>
+        <pre class="col-xs-8 col-md-10"><%-$c['text']%><div class="time"><%=human_time($c['time'])%></div></pre>
+      </div>
+      <%}%>
+
+      <%if(user('verified')) {%>
+        <div class="item row <%=($ticket['user'] == user('id')?'left':'right')%>">
+          <div class="col-xs-2 col-md-1">
+            <div class="user-sign pull-right"><%=user('id')%></div>
+          </div>
+          <textarea class="col-xs-8 col-md-10"></textarea>
+        </div>
+        <div class="item row">
+          <div class="col-xs-2 col-md-1"></div>
+          <div class="col-xs-10 col-md-11">
+            <button class="btn btn-primary">回复</button>
+            <%function ustatus($status, $sstyle, $stext, $c=false) {%>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <label>
+                <input type="radio" name="status" value="<%=$status%>" <%=($c?'checked':'')%>/>
+                更新至
+                <span class="btn btn-xs btn-<%=$sstyle[$status]%>">
+                  <%=$stext[$status]%>
+                <span>
+              </label>
+            <%} if($ticket['user'] == user('id')) {
+              ustatus('pending', $sstyle, $stext, true);
+              ustatus('closed', $sstyle, $stext);
+            } else {
+              ustatus('working', $sstyle, $stext, true);
+              ustatus('confirming', $sstyle, $stext);
+            }%>
+          </div>
+        </div>
+      <%}%>
+    </div>
+  </div>
+</div>
+<%=tpl('footer')%>

@@ -8,7 +8,7 @@ if(isset($_POST['ticket']) || isset($_POST['tag'])) {
     $ticketID = isset($_POST['id']) ? 1 * $_POST['id'] : time() . rand(10,99);
     $dataF = 'ticket/t_' . $ticketID;
     if(data_exists($dataF)) {
-        $data = json_decode(data_read(), true);
+        $data = json_decode(data_read($dataF), true);
     } else {
         $data = array(
             'user'    => user('id'),
@@ -24,19 +24,22 @@ if(isset($_POST['ticket']) || isset($_POST['tag'])) {
             'time' => time(),
             'text' => $_POST['ticket']
         );
+        if(isset($_POST['status'])) {
+            $data['status'] = $_POST['status'];
+        }
     }
     if(isset($_POST['tag'])) {
         $data['tag'] = array();
         foreach(preg_split('/\s+/', $_POST['tag']) as $t) {
-            if(!$t) 
-                continue;
+            if(!$t) continue;
+            $t = strtolower($t);
             $data['tag'][] = $t;
-            data_write('ticket/tag/' . base64_encode($t), '');
+            data_save('ticket/tag/' . base64_encode($t), '');
         }
     }
     data_save($dataF, json_encode($data));
     sync_end();
-    header('location: ticket');
+    header('location: ticket?id=' . $ticketID);
     die();
 }
 if(isset($_GET['list'])) {
@@ -62,12 +65,19 @@ if(isset($_GET['list'])) {
         }
     }
     die(json_encode($ret));
+} elseif(isset($_POST['rmtag'])) {
+    data_remove('ticket/tag/' . base64_encode($_POST['rmtag']));
+    die();
 } elseif(isset($_GET['id'])) {
+    if(!data_exists('ticket/t_' . $_GET['id'])) {
+        die(tpl('404', array('hehe'=>'123')));
+    }
     $tags = data_list('ticket/tag');
     foreach($tags as &$v) {
         $v = base64_decode($v);
     }
     $item = json_decode(data_read('ticket/t_' . $_GET['id']), true);
+    $item['id'] = $_GET['id'];
     die(tpl('show-ticket', array('tags' => $tags, 'ticket'=> $item)));
 } else {
     $tags = data_list('ticket/tag');

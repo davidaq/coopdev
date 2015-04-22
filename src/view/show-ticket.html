@@ -34,10 +34,14 @@ $sstyle = array(
           <i class="glyphicon glyphicon-tags"></i>
           标签
         </h4>
-        <%if(user('verified')) {%><textarea class="form-control"><%}
-          echo implode(' ', $ticket['tag']);
-          if(user('verified')) {%></textarea>
-        <button class="btn-xs btn-primary">修改</button>
+        <%if(user('verified')) {%>
+        <form action="ticket" method="post">
+          <textarea class="form-control" name="tag"><%}
+            echo implode(' ', $ticket['tag']);
+            if(user('verified')) {%></textarea>
+            <input type="hidden" name="id" value="<%=$ticket['id']%>"/>
+            <input type="submit" class="btn-xs btn-primary" value="修改"/>
+        </form>
         <%}%>
       </div>
     </div>
@@ -52,34 +56,37 @@ $sstyle = array(
       <%}%>
 
       <%if(user('verified')) {%>
-        <div class="item row <%=($ticket['user'] == user('id')?'left':'right')%>">
-          <div class="col-xs-2 col-md-1">
-            <div class="user-sign pull-right"><%=user('id')%></div>
+        <form action="ticket" method="post">
+          <div class="item row <%=($ticket['user'] == user('id')?'left':'right')%>">
+            <div class="col-xs-2 col-md-1">
+              <div class="user-sign pull-right"><%=user('id')%></div>
+            </div>
+            <textarea name="ticket" class="col-xs-8 col-md-10"></textarea>
+            <input type="hidden" name="id" value="<%=$ticket['id']%>"/>
           </div>
-          <textarea class="col-xs-8 col-md-10"></textarea>
-        </div>
-        <div class="item row">
-          <div class="col-xs-2 col-md-1"></div>
-          <div class="col-xs-10 col-md-11">
-            <button class="btn btn-primary">回复</button>
-            <%function ustatus($status, $sstyle, $stext, $c=false) {%>
-              &nbsp;&nbsp;&nbsp;&nbsp;
-              <label>
-                <input type="radio" name="status" value="<%=$status%>" <%=($c?'checked':'')%>/>
-                更新至
-                <span class="btn btn-xs btn-<%=$sstyle[$status]%>">
-                  <%=$stext[$status]%>
-                <span>
-              </label>
-            <%} if($ticket['user'] == user('id')) {
-              ustatus('pending', $sstyle, $stext, true);
-              ustatus('closed', $sstyle, $stext);
-            } else {
-              ustatus('working', $sstyle, $stext, true);
-              ustatus('confirming', $sstyle, $stext);
-            }%>
+          <div class="item row">
+            <div class="col-xs-2 col-md-1"></div>
+            <div class="col-xs-10 col-md-11">
+              <input type="submit" class="btn btn-primary" value="回复"/>
+              <%function ustatus($status, $sstyle, $stext, $c=false) {%>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                  <input type="radio" name="status" value="<%=$status%>" <%=($c?'checked':'')%>/>
+                  更新至
+                  <span class="btn btn-xs btn-<%=$sstyle[$status]%>">
+                    <%=$stext[$status]%>
+                  <span>
+                </label>
+              <%} if($ticket['user'] == user('id')) {
+                ustatus('pending', $sstyle, $stext, true);
+                ustatus('closed', $sstyle, $stext);
+              } else {
+                ustatus('working', $sstyle, $stext, true);
+                ustatus('confirming', $sstyle, $stext);
+              }%>
+            </div>
           </div>
-        </div>
+        </form>
       <%}%>
     </div>
   </div>

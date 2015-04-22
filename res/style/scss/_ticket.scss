@@ -1,4 +1,11 @@
 .ticket {
+  .filter-item {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
   textarea {
     max-width: 100%;
     margin-bottom: 5px;
@@ -89,10 +96,8 @@
           float: right;
         }
       }
-      &.left {
-        .time {
-          text-align: right;
-        }
+      .time {
+        text-align: right;
       }
       .col-sx-2, .col-md-1 {
         padding: 0;
@@ -109,8 +114,8 @@
           color: #aaa;
           -webkit-transform: translateY(5px);
           -moz-transform: translateY(5px);
-          -o-transform: translateY(5px);
           -ms-transform: translateY(5px);
+          -o-transform: translateY(5px);
           transform: translateY(5px);
         }
       }

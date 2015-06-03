@@ -6,7 +6,7 @@ function stime($t) {
 %>
 <div class="dev">
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-sm-6">
       <div class="stat">
         <h4>
           <i class="glyphicon glyphicon-tasks"></i>
@@ -16,7 +16,38 @@ function stime($t) {
       <div class="stat">
       </div>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-6">
+      <div class="chron">
+        <h4>
+          <i class="glyphicon glyphicon-time"></i>
+          每日任务
+        </h4>
+        <%foreach($chron as $k=>$item) {%>
+          <div class="item">
+            每日<b><%=$item['interval']%></b>
+            点访问<b><%=$item['url']%></b>
+            <span class="pull-right">
+              <%=stime($item['last'])%>
+            </span>
+            <%if(user('verified')) {%>
+              <a class="btn btn-default btn-xs" href="<%=BASE%>dev?delete=<%=$k%>">删除</a>
+            <%}%>
+          </div>
+        <%}%>
+        <%if(user('verified')) {%>
+        <form style="overflow:hidden; zoom:1" class="form" method="post">
+          <div class="input-group">
+            <span class="input-group-addon">每日</span>
+            <input type="text" name="interval" class="form-control" placeholder="0" style="text-align:center" size="3"/>
+            <span class="input-group-addon">点访问</span>
+            <input type="text" name="url" class="form-control" placeholder="http://"/>
+            <span class="input-group-btn">
+              <input type="submit" class="btn btn-default" value="添加"/>
+            </span>
+          </div>
+        </form>
+        <%}%>
+      </div>
       <div class="chron">
         <h4>
           <i class="glyphicon glyphicon-time"></i>
@@ -24,7 +55,7 @@ function stime($t) {
         </h4>
         <%foreach($chron as $k=>$item) {%>
           <div class="item">
-            每<b><%=$item['interval']%></b>
+            每隔<b><%=$item['interval']%></b>
             秒访问<b><%=$item['url']%></b>
             <span class="pull-right">
               <%=stime($item['last'])%>
@@ -37,7 +68,7 @@ function stime($t) {
         <%if(user('verified')) {%>
         <form style="overflow:hidden; zoom:1" class="form" method="post">
           <div class="input-group">
-            <span class="input-group-addon">每</span>
+            <span class="input-group-addon">每隔</span>
             <input type="text" name="interval" class="form-control" placeholder="1" style="text-align:center" size="3"/>
             <span class="input-group-addon">x10秒访问</span>
             <input type="text" name="url" class="form-control" placeholder="http://"/>

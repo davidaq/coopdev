@@ -56,7 +56,16 @@ $sstyle = array(
       <%}%>
 
       <%if(user('verified')) {%>
-        <form action="ticket" method="post">
+        <script type="text/javascript">
+          function validate(ele) {
+            if(!!($('textarea', ele).val().replace(/\s+/g, ''))) {
+              return true;
+            }
+            alert('请填写回复信息');
+            return false;
+          }
+        </script>
+        <form action="ticket" method="post" onsubmit="return validate(this)">
           <div class="item row <%=($ticket['user'] == user('id')?'left':'right')%>">
             <div class="col-xs-2 col-md-1">
               <div class="user-sign pull-right"><%=user('id')%></div>

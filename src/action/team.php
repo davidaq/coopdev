@@ -15,7 +15,7 @@ foreach(data_list('user') as $k=>$v) {
     }
 }
 function sortFunc($a, $b) {
-    return strcmp($a['o'], $b['o']);
+    return strcmp($b['o'], $a['o']);
 }
 usort($list, 'sortFunc');
 die(tpl('team', $data));

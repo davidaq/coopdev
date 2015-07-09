@@ -6,5 +6,5 @@ return array(
     'Site Admin' => 'anqin@ccme.cc',
     
     'language' => 'cn',
-    'verify email' => '@ccme.cc'
+    'verify email' => '@me-v.cn'
 );

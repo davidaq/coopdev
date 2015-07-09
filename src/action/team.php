@@ -10,11 +10,12 @@ foreach(data_list('user') as $k=>$v) {
         } else {
             $item['avatar'] = BASE . 'res/images/default-avatar.jpg';
         }
+        $item['o'] = iconv('utf-8', 'gbk', $item['name']);
         $list[] = $item;
     }
 }
 function sortFunc($a, $b) {
-    return strcmp($a['name'], $b['name']);
+    return strcmp($a['o'], $b['o']);
 }
 usort($list, 'sortFunc');
 die(tpl('team', $data));

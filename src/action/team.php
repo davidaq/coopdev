@@ -13,4 +13,8 @@ foreach(data_list('user') as $k=>$v) {
         $list[] = $item;
     }
 }
+function sortFunc($a, $b) {
+    return strcmp($a['name'], $b['name']);
+}
+usort($list, 'sortFunc');
 die(tpl('team', $data));

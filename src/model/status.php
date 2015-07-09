@@ -34,8 +34,16 @@ function post_status($content, $type='did', $escape=true) {
         return;
     if($escape)
         $content = iescape($content, true);
+    $uid = user('id');
+    if($type == 'did') {
+        $c = md5($content);
+        if($c == data_read("user/$uid/lastdid")) {
+            return;
+        }
+        data_save("user/$uid/lastdid", $c);
+    }
     $data = array(
-        'user' => user('id'),
+        'user' => $uid,
         'date' => time(),
         'type' => $type,
         'content' => $content
